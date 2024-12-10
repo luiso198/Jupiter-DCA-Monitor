@@ -351,12 +351,15 @@
                     <div style="margin-top: 10px;">
                         <div>Input: ${position.inputToken}</div>
                         <div>Output: ${position.outputToken}</div>
-                        <div>Amount: ${position.amount}</div>
-                        <div>Frequency: Every ${position.frequency}s</div>
+                        <div>Total Amount: ${Number(position.totalAmount).toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+                        <div>Amount Per Cycle: ${Number(position.amountPerCycle).toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+                        <div>Remaining Cycles: ${position.remainingCycles}</div>
+                        <div>Frequency: Every ${position.cycleFrequency}s</div>
                     </div>
                     <div style="margin-top: 10px;">
-                        <a href="https://solscan.io/account/${position.publicKey}" 
-                           target="_blank" 
+                        <a 
+                          href="https://solscan.io/account/${position.publicKey}/dca?cluster=mainnet-beta"
+                           target="_blank"
                            style="color: #64B5F6;">
                             View on Solscan ↗
                         </a>

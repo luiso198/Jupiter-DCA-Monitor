@@ -130,6 +130,7 @@ export class JupiterMonitor {
     private readonly TOKEN_INFO: { [key: string]: { symbol: string, decimals: number } } = {
         'HJUfqXoYjC653f2p33i84zdCC3jc4EuVnbruSe5kpump': { symbol: 'LOGOS', decimals: 6 },
         '8SgNwESovnbG1oNEaPVhg6CR9mTMSK7jPvcYRe3wpump': { symbol: 'CHAOS', decimals: 6 },
+        'So11111111111111111111111111111111111111112': { symbol: 'SOL', decimals: 9 },
         // Keep USDC/USDT for price calculations
         'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v': { symbol: 'USDC', decimals: 6 },
         'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB': { symbol: 'USDT', decimals: 6 }
@@ -173,18 +174,45 @@ export class JupiterMonitor {
         while (this.isRunning) {
             try {
                 const allDcaAccounts = (await this.dca.getAll()) as ProgramDCAAccount[];
+                
+                // Add detailed logging here using Logger.info
+                allDcaAccounts.forEach(pos => {
+                    Logger.info('Raw DCA Position:', {
+                        publicKey: pos.publicKey.toString(),
+                        inputToken: this.TOKEN_INFO[pos.account.inputMint.toString()]?.symbol || pos.account.inputMint.toString(),
+                        outputToken: this.TOKEN_INFO[pos.account.outputMint.toString()]?.symbol || pos.account.outputMint.toString(),
+                        inDeposited: pos.account.inDeposited.toString(),
+                        inWithdrawn: pos.account.inWithdrawn.toString(),
+                        inAmountPerCycle: pos.account.inAmountPerCycle.toString(),
+                        cycleFrequency: pos.account.cycleFrequency.toNumber()
+                    });
+                });
+
                 const activePositions = allDcaAccounts.filter(pos => {
-                    if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) return false;
+                    if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) {
+                        console.log('Filtered out inactive position:', pos.publicKey.toString());
+                        return false;
+                    }
                     
                     const inputMint = pos.account.inputMint.toString();
                     const outputMint = pos.account.outputMint.toString();
                     
-                    return (
+                    const isIncluded = (
                         inputMint === this.LOGOS.toString() || 
                         outputMint === this.LOGOS.toString() ||
                         inputMint === this.CHAOS.toString() || 
                         outputMint === this.CHAOS.toString()
                     );
+
+                    if (!isIncluded) {
+                        console.log('Filtered out by token:', {
+                            publicKey: pos.publicKey.toString(),
+                            inputMint,
+                            outputMint
+                        });
+                    }
+                    
+                    return isIncluded;
                 });
 
                 // Generate summary if needed
@@ -361,26 +389,22 @@ export class JupiterMonitor {
     }
 
     private async generateDcaSummary(positions: ProgramDCAAccount[]): Promise<string> {
-        // Create summary data structure
         const summary = {
             LOGOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 },
             CHAOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 }
         };
 
-        // Process positions and calculate summary
         for (const pos of positions) {
             const inputMint = pos.account.inputMint.toString();
             const outputMint = pos.account.outputMint.toString();
             
+            // Calculate total remaining amount
+            const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
+            const volume = Number(totalAmount.toString()) / Math.pow(10, 6);
+
             // Process LOGOS positions
             if (inputMint === this.LOGOS.toString() || outputMint === this.LOGOS.toString()) {
                 const isBuying = outputMint === this.LOGOS.toString();
-                const amount = await this.formatTokenAmount(
-                    pos.account.inDeposited.sub(pos.account.inWithdrawn),
-                    pos.account.inputMint
-                );
-                const volume = this.parseFormattedAmount(amount);
-
                 if (isBuying) {
                     summary.LOGOS.buyOrders++;
                     summary.LOGOS.buyVolume += volume;
@@ -393,12 +417,6 @@ export class JupiterMonitor {
             // Process CHAOS positions
             if (inputMint === this.CHAOS.toString() || outputMint === this.CHAOS.toString()) {
                 const isBuying = outputMint === this.CHAOS.toString();
-                const amount = await this.formatTokenAmount(
-                    pos.account.inDeposited.sub(pos.account.inWithdrawn),
-                    pos.account.inputMint
-                );
-                const volume = this.parseFormattedAmount(amount);
-
                 if (isBuying) {
                     summary.CHAOS.buyOrders++;
                     summary.CHAOS.buyVolume += volume;
@@ -409,11 +427,14 @@ export class JupiterMonitor {
             }
         }
 
+        // Get formatted positions first
+        const formattedPositions = await this.formatPositions(positions);
+
         // Create state update
         const state = {
             timestamp: Date.now(),
             summary,
-            positions: this.formatPositions(positions),
+            positions: formattedPositions,
             chartData: {
                 LOGOS: [{
                     timestamp: Date.now(),
@@ -450,12 +471,12 @@ export class JupiterMonitor {
                     sellOrders: summary.CHAOS.sellOrders
                 }]
             };
-            this.webServer.updateState(state.positions, state.summary, chartData);
+            this.webServer.updateState(formattedPositions, state.summary, chartData);
         }
 
         // Format and send Telegram message
         const message = [
-            '📊 Jupiter DCA Summary:\n',
+            ' Jupiter DCA Summary:\n',
             'LOGOS:',
             `🟢 Buy Orders: ${summary.LOGOS.buyOrders}`,
             `🔴 Sell Orders: ${summary.LOGOS.sellOrders}`,
@@ -507,12 +528,17 @@ export class JupiterMonitor {
             const tokenInfo = await this.getTokenInfo(mint);
             const decimals = tokenInfo.decimals;
             const divisor = new BN(10).pow(new BN(decimals));
-            const integerPart = amount.div(divisor);
-            const fractionalPart = amount.mod(divisor);
             
-            // Format with proper decimals
-            const formattedAmount = `${integerPart.toString()}.${fractionalPart.toString().padStart(decimals, '0')}`;
-            return `${formattedAmount} ${tokenInfo.symbol}`;
+            // Convert to decimal string with proper precision
+            const fullAmount = amount.toString().padStart(decimals + 1, '0');
+            const integerPart = fullAmount.slice(0, -decimals) || '0';
+            const fractionalPart = fullAmount.slice(-decimals);
+            
+            const formattedNumber = `${integerPart}.${fractionalPart}`;
+            // Remove trailing zeros and decimal if whole number
+            const cleanedNumber = formattedNumber.replace(/\.?0+$/, '');
+            
+            return `${cleanedNumber} ${tokenInfo.symbol}`;
         } catch (error) {
             Logger.error('Error formatting token amount:', error);
             return '0';
@@ -733,8 +759,11 @@ export class JupiterMonitor {
 
     private parseFormattedAmount(formattedAmount: string): number {
         try {
-            // Extract just the number part and convert to float
-            return parseFloat(formattedAmount.split(' ')[0].replace(/[^0-9.]/g, '')) || 0;
+            // Extract just the number part
+            const numberPart = formattedAmount.split(' ')[0];
+            // Convert to float and ensure proper decimal handling
+            const amount = parseFloat(numberPart);
+            return isNaN(amount) ? 0 : amount;
         } catch (error) {
             Logger.error('Error parsing formatted amount:', error);
             return 0;
@@ -746,27 +775,64 @@ export class JupiterMonitor {
             .filter(pos => {
                 const inputMint = pos.account.inputMint.toString();
                 const outputMint = pos.account.outputMint.toString();
-                return (
+                // Log positions that get filtered out
+                const isIncluded = (
                     inputMint === this.LOGOS.toString() || 
                     outputMint === this.LOGOS.toString() ||
                     inputMint === this.CHAOS.toString() || 
                     outputMint === this.CHAOS.toString()
                 );
+                if (!isIncluded) {
+                    console.log('Filtered out position:', {
+                        publicKey: pos.publicKey.toString(),
+                        inputMint,
+                        outputMint
+                    });
+                }
+                return isIncluded;
             })
             .map(pos => {
                 const inputMint = pos.account.inputMint.toString();
                 const outputMint = pos.account.outputMint.toString();
                 const isLogos = inputMint === this.LOGOS.toString() || outputMint === this.LOGOS.toString();
                 
+                // Calculate DCA amounts
+                const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
+                const amountPerCycle = pos.account.inAmountPerCycle;
+                const totalCycles = totalAmount.div(amountPerCycle);
+                const formattedAmount = Number(totalAmount.toString()) / Math.pow(10, 6);
+                
+                // Add detailed logging
+                Logger.info('DCA Position Calculations:', {
+                    publicKey: pos.publicKey.toString(),
+                    token: isLogos ? 'LOGOS' : 'CHAOS',
+                    rawValues: {
+                        inDeposited: pos.account.inDeposited.toString(),
+                        inWithdrawn: pos.account.inWithdrawn.toString(),
+                        inAmountPerCycle: pos.account.inAmountPerCycle.toString()
+                    },
+                    calculations: {
+                        totalRemainingRaw: totalAmount.toString(),
+                        totalRemainingFormatted: formattedAmount,
+                        amountPerCycleFormatted: Number(amountPerCycle.toString()) / Math.pow(10, 6),
+                        remainingCycles: totalCycles.toNumber(),
+                        cycleFrequency: pos.account.cycleFrequency.toNumber()
+                    }
+                });
+
                 return {
                     token: isLogos ? 'LOGOS' : 'CHAOS',
                     type: outputMint === (isLogos ? this.LOGOS : this.CHAOS).toString() ? 'BUY' : 'SELL',
                     publicKey: pos.publicKey.toString(),
+                    programId: 'DCAmK5w3m3yVnY8xdAhFYbFEHsocrfyxmXXYHEUqhxX6',
                     inputToken: this.TOKEN_INFO[inputMint]?.symbol || inputMint,
                     outputToken: this.TOKEN_INFO[outputMint]?.symbol || outputMint,
-                    amount: pos.account.inDeposited.sub(pos.account.inWithdrawn).toString(),
-                    frequency: pos.account.cycleFrequency.toNumber(),
-                    lastUpdate: Date.now()
+                    totalAmount: formattedAmount.toString(),
+                    amountPerCycle: Number(amountPerCycle.toString()) / Math.pow(10, 6),
+                    remainingCycles: totalCycles.toNumber(),
+                    cycleFrequency: pos.account.cycleFrequency.toNumber(),
+                    lastUpdate: Date.now(),
+                    solscanUrl: `https://solscan.io/tx/${pos.publicKey.toString()}`
                 };
             });
     }
