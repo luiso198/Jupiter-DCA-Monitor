@@ -1,0 +1,59 @@
+{
+  "timestamp": 1733796551980,
+  "data": {
+    "USDC": {
+      "buyOrders": 201,
+      "sellOrders": 3016,
+      "buyVolume": 413660191.748383,
+      "sellVolume": 20782485.19994
+    },
+    "USDT": {
+      "buyOrders": 45,
+      "sellOrders": 925,
+      "buyVolume": 1920551.826258,
+      "sellVolume": 3618785.081856
+    },
+    "SOL": {
+      "buyOrders": 5666,
+      "sellOrders": 198,
+      "buyVolume": 5281910.839931992,
+      "sellVolume": 11402.320952548
+    },
+    "mSOL": {
+      "buyOrders": 13,
+      "sellOrders": 1674,
+      "buyVolume": 8.97744979,
+      "sellVolume": 3462.392933089
+    },
+    "BONK": {
+      "buyOrders": 108,
+      "sellOrders": 118,
+      "buyVolume": 539134.20479,
+      "sellVolume": 53883168077.96803
+    },
+    "LOGOS": {
+      "buyOrders": 2,
+      "sellOrders": 4,
+      "buyVolume": 7008,
+      "sellVolume": 6971206.513581
+    },
+    "CHAOS": {
+      "buyOrders": 4,
+      "sellOrders": 106,
+      "buyVolume": 22048,
+      "sellVolume": 75581560.410674
+    },
+    "RLBB": {
+      "buyOrders": 6,
+      "sellOrders": 1,
+      "buyVolume": 5818978.23,
+      "sellVolume": 10
+    },
+    "SAMO": {
+      "buyOrders": 4,
+      "sellOrders": 7,
+      "buyVolume": 1.1,
+      "sellVolume": 187449.653385234
+    }
+  }
+}

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jupiter DCA Monitor</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Status banner */
+        .status-banner {
+            background-color: #1a1a1a;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-banner.cached {
+            border-left: 4px solid #ffd700;
+        }
+
+        .status-banner.live {
+            border-left: 4px solid #4CAF50;
+        }
+
+        .status-banner .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Token sections */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .token-section {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        /* Stats grid */
+        .token-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Chart container */
+        .chart-container {
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            height: 300px;
+        }
+
+        /* Positions section */
+        .positions-container {
+            margin-top: 20px;
+        }
+
+        .position-card {
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+        }
+
+        .position-card.buy { border-left-color: #4CAF50; }
+        .position-card.sell { border-left-color: #f44336; }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Controls */
+        .button {
+            background-color: #3a3a3a;
+            border: none;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #4a4a4a;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-text">Loading DCA data...</div>
+    </div>
+
+    <div class="container">
+        <div id="status-banner" class="status-banner cached">
+            <div class="status-text">Loading...</div>
+            <div class="controls">
+                <button id="refresh-button" class="button">Refresh Now</button>
+                <div class="toggle-switch">
+                    <label for="auto-refresh">Auto-refresh</label>
+                    <input type="checkbox" id="auto-refresh">
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- LOGOS Section -->
+            <section class="token-section">
+                <h2>LOGOS DCA</h2>
+                <div class="token-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Buy Orders</span>
+                        <span class="stat-value" id="logos-buy-orders">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Buy Volume</span>
+                        <span class="stat-value" id="logos-buy-volume">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sell Orders</span>
+                        <span class="stat-value" id="logos-sell-orders">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sell Volume</span>
+                        <span class="stat-value" id="logos-sell-volume">0</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="logos-chart"></canvas>
+                </div>
+                <div id="logos-positions" class="positions-container"></div>
+            </section>
+
+            <!-- CHAOS Section -->
+            <section class="token-section">
+                <h2>CHAOS DCA</h2>
+                <div class="token-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Buy Orders</span>
+                        <span class="stat-value" id="chaos-buy-orders">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Buy Volume</span>
+                        <span class="stat-value" id="chaos-buy-volume">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sell Orders</span>
+                        <span class="stat-value" id="chaos-sell-orders">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sell Volume</span>
+                        <span class="stat-value" id="chaos-sell-volume">0</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chaos-chart"></canvas>
+                </div>
+                <div id="chaos-positions" class="positions-container"></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // State management
+        let autoRefreshInterval = null;
+        const charts = {
+            LOGOS: null,
+            CHAOS: null
+        };
+
+        // Initialize charts
+        function initializeChart(token) {
+            const ctx = document.getElementById(`${token.toLowerCase()}-chart`).getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (charts[token]) {
+                charts[token].destroy();
+            }
+
+            charts[token] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Buy Volume',
+                            borderColor: '#4CAF50',
+                            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                            data: [],
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Sell Volume',
+                            borderColor: '#f44336',
+                            backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                            data: [],
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 0
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update chart data
+        function updateChart(token, chartData) {
+            console.log(`Raw chart data for ${token}:`, JSON.stringify(chartData, null, 2));
+
+            if (!charts[token]) {
+                console.log(`Initializing chart for ${token}`);
+                initializeChart(token);
+            }
+
+            if (!Array.isArray(chartData) || chartData.length === 0) {
+                console.warn(`No chart data for ${token}`);
+                return;
+            }
+
+            // Sort data points by timestamp
+            const sortedData = [...chartData].sort((a, b) => a.timestamp - b.timestamp);
+
+            const labels = sortedData.map(point => {
+                const date = new Date(point.timestamp);
+                return `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+            });
+
+            const buyVolume = sortedData.map(point => point.buyVolume);
+            const sellVolume = sortedData.map(point => point.sellVolume);
+
+            console.log(`Processed chart data for ${token}:`, {
+                labels,
+                buyVolume,
+                sellVolume
+            });
+
+            charts[token].data.labels = labels;
+            charts[token].data.datasets[0].data = buyVolume;
+            charts[token].data.datasets[1].data = sellVolume;
+            charts[token].update();
+        }
+
+        // Update summary stats
+        function updateStats(token, summary) {
+            const lowercase = token.toLowerCase();
+            document.getElementById(`${lowercase}-buy-orders`).textContent = summary.buyOrders;
+            document.getElementById(`${lowercase}-sell-orders`).textContent = summary.sellOrders;
+            document.getElementById(`${lowercase}-buy-volume`).textContent = summary.buyVolume.toLocaleString();
+            document.getElementById(`${lowercase}-sell-volume`).textContent = summary.sellVolume.toLocaleString();
+        }
+
+        // Render positions
+        function renderPositions(token, positions) {
+            const container = document.getElementById(`${token.toLowerCase()}-positions`);
+            const filteredPositions = positions.filter(pos => pos.token === token);
+            
+            const html = filteredPositions.map(position => `
+                <div class="position-card ${position.type.toLowerCase()}">
+                    <div>
+                        <strong>${position.type === 'BUY' ? '🟢' : '🔴'} ${position.type}</strong>
+                        <span style="float: right; color: #888;">
+                            ${new Date(position.lastUpdate).toLocaleString()}
+                        </span>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <div>Input: ${position.inputToken}</div>
+                        <div>Output: ${position.outputToken}</div>
+                        <div>Amount: ${position.amount}</div>
+                        <div>Frequency: Every ${position.frequency}s</div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <a href="https://solscan.io/account/${position.publicKey}" 
+                           target="_blank" 
+                           style="color: #64B5F6;">
+                            View on Solscan ↗
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = html || '<div style="text-align: center; color: #888;">No active positions</div>';
+        }
+
+        // Update status banner
+        function updateStatusBanner(timestamp, isLive = false) {
+            const banner = document.getElementById('status-banner');
+            const statusText = document.querySelector('.status-text');
+            
+            banner.className = `status-banner ${isLive ? 'live' : 'cached'}`;
+            statusText.textContent = `Data as of ${new Date(timestamp).toLocaleString()}`;
+        }
+
+        // Fetch and update all data
+        async function fetchData(showLoading = false) {
+            if (showLoading) {
+                document.getElementById('loading-overlay').style.display = 'flex';
+            }
+
+            try {
+                const response = await fetch('/api/state');
+                const { data } = await response.json();
+
+                console.log('Full state data:', JSON.stringify(data, null, 2)); // Full data dump
+
+                // Update UI with new data
+                updateStatusBanner(data.timestamp, true);
+                
+                // Update stats and charts for both tokens
+                ['LOGOS', 'CHAOS'].forEach(token => {
+                    const chartData = data.chartData?.[token] || [];
+                    console.log(`Chart data for ${token}:`, chartData); // Log actual chart data
+
+                    updateStats(token, data.summary[token]);
+                    updateChart(token, chartData);
+                    renderPositions(token, data.positions);
+                });
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                document.getElementById('loading-overlay').style.display = 'none';
+            }
+        }
+
+        // Initialize everything
+        function initialize() {
+            // Initialize charts
+            initializeChart('LOGOS');
+            initializeChart('CHAOS');
+
+            // Set up refresh button
+            document.getElementById('refresh-button').addEventListener('click', () => {
+                fetchData(true);
+            });
+
+            // Set up auto-refresh toggle
+            const autoRefreshToggle = document.getElementById('auto-refresh');
+            autoRefreshToggle.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    autoRefreshInterval = setInterval(() => fetchData(false), 5000);
+                } else {
+                    if (autoRefreshInterval) {
+                        clearInterval(autoRefreshInterval);
+                        autoRefreshInterval = null;
+                    }
+                }
+            });
+
+            // Initial data fetch
+            fetchData(true);
+        }
+
+        // Start everything when the page loads
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>

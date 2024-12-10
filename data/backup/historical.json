@@ -1,0 +1,2420 @@
+{
+  "LOGOS": [
+    {
+      "timestamp": 1733107211006,
+      "buyOrders": 10,
+      "sellOrders": 18,
+      "buyVolume": 18129,
+      "sellVolume": 65974
+    },
+    {
+      "timestamp": 1733110811006,
+      "buyOrders": 3,
+      "sellOrders": 5,
+      "buyVolume": 37196,
+      "sellVolume": 72896
+    },
+    {
+      "timestamp": 1733114411006,
+      "buyOrders": 1,
+      "sellOrders": 15,
+      "buyVolume": 16642,
+      "sellVolume": 83596
+    },
+    {
+      "timestamp": 1733118011006,
+      "buyOrders": 7,
+      "sellOrders": 7,
+      "buyVolume": 56458,
+      "sellVolume": 113797
+    },
+    {
+      "timestamp": 1733121611006,
+      "buyOrders": 5,
+      "sellOrders": 11,
+      "buyVolume": 28015,
+      "sellVolume": 78045
+    },
+    {
+      "timestamp": 1733125211006,
+      "buyOrders": 9,
+      "sellOrders": 19,
+      "buyVolume": 38851,
+      "sellVolume": 52259
+    },
+    {
+      "timestamp": 1733128811006,
+      "buyOrders": 5,
+      "sellOrders": 21,
+      "buyVolume": 58683,
+      "sellVolume": 58578
+    },
+    {
+      "timestamp": 1733132411006,
+      "buyOrders": 3,
+      "sellOrders": 6,
+      "buyVolume": 51151,
+      "sellVolume": 95123
+    },
+    {
+      "timestamp": 1733136011006,
+      "buyOrders": 6,
+      "sellOrders": 18,
+      "buyVolume": 14016,
+      "sellVolume": 55902
+    },
+    {
+      "timestamp": 1733139611006,
+      "buyOrders": 8,
+      "sellOrders": 9,
+      "buyVolume": 49298,
+      "sellVolume": 99678
+    },
+    {
+      "timestamp": 1733143211006,
+      "buyOrders": 7,
+      "sellOrders": 16,
+      "buyVolume": 11663,
+      "sellVolume": 65222
+    },
+    {
+      "timestamp": 1733146811006,
+      "buyOrders": 1,
+      "sellOrders": 17,
+      "buyVolume": 38302,
+      "sellVolume": 95513
+    },
+    {
+      "timestamp": 1733150411006,
+      "buyOrders": 7,
+      "sellOrders": 23,
+      "buyVolume": 16399,
+      "sellVolume": 106171
+    },
+    {
+      "timestamp": 1733154011006,
+      "buyOrders": 1,
+      "sellOrders": 6,
+      "buyVolume": 18943,
+      "sellVolume": 102357
+    },
+    {
+      "timestamp": 1733157611006,
+      "buyOrders": 6,
+      "sellOrders": 23,
+      "buyVolume": 49479,
+      "sellVolume": 100788
+    },
+    {
+      "timestamp": 1733161211006,
+      "buyOrders": 8,
+      "sellOrders": 17,
+      "buyVolume": 32299,
+      "sellVolume": 126451
+    },
+    {
+      "timestamp": 1733164811006,
+      "buyOrders": 6,
+      "sellOrders": 10,
+      "buyVolume": 28400,
+      "sellVolume": 87998
+    },
+    {
+      "timestamp": 1733168411006,
+      "buyOrders": 5,
+      "sellOrders": 14,
+      "buyVolume": 12705,
+      "sellVolume": 57376
+    },
+    {
+      "timestamp": 1733172011006,
+      "buyOrders": 6,
+      "sellOrders": 16,
+      "buyVolume": 23113,
+      "sellVolume": 142585
+    },
+    {
+      "timestamp": 1733175611006,
+      "buyOrders": 8,
+      "sellOrders": 16,
+      "buyVolume": 11490,
+      "sellVolume": 141502
+    },
+    {
+      "timestamp": 1733179211006,
+      "buyOrders": 5,
+      "sellOrders": 7,
+      "buyVolume": 59983,
+      "sellVolume": 131873
+    },
+    {
+      "timestamp": 1733182811006,
+      "buyOrders": 6,
+      "sellOrders": 20,
+      "buyVolume": 18462,
+      "sellVolume": 106112
+    },
+    {
+      "timestamp": 1733186411006,
+      "buyOrders": 8,
+      "sellOrders": 10,
+      "buyVolume": 36940,
+      "sellVolume": 121987
+    },
+    {
+      "timestamp": 1733190011006,
+      "buyOrders": 7,
+      "sellOrders": 23,
+      "buyVolume": 15163,
+      "sellVolume": 117207
+    },
+    {
+      "timestamp": 1733193611006,
+      "buyOrders": 5,
+      "sellOrders": 6,
+      "buyVolume": 27796,
+      "sellVolume": 109483
+    },
+    {
+      "timestamp": 1733197211006,
+      "buyOrders": 6,
+      "sellOrders": 22,
+      "buyVolume": 16368,
+      "sellVolume": 113214
+    },
+    {
+      "timestamp": 1733200811006,
+      "buyOrders": 7,
+      "sellOrders": 8,
+      "buyVolume": 48678,
+      "sellVolume": 105556
+    },
+    {
+      "timestamp": 1733204411006,
+      "buyOrders": 9,
+      "sellOrders": 24,
+      "buyVolume": 55716,
+      "sellVolume": 124191
+    },
+    {
+      "timestamp": 1733208011006,
+      "buyOrders": 5,
+      "sellOrders": 6,
+      "buyVolume": 33956,
+      "sellVolume": 148263
+    },
+    {
+      "timestamp": 1733211611006,
+      "buyOrders": 1,
+      "sellOrders": 9,
+      "buyVolume": 21782,
+      "sellVolume": 145590
+    },
+    {
+      "timestamp": 1733215211006,
+      "buyOrders": 2,
+      "sellOrders": 11,
+      "buyVolume": 36254,
+      "sellVolume": 88828
+    },
+    {
+      "timestamp": 1733218811006,
+      "buyOrders": 9,
+      "sellOrders": 17,
+      "buyVolume": 13144,
+      "sellVolume": 95934
+    },
+    {
+      "timestamp": 1733222411006,
+      "buyOrders": 8,
+      "sellOrders": 10,
+      "buyVolume": 52207,
+      "sellVolume": 66388
+    },
+    {
+      "timestamp": 1733226011006,
+      "buyOrders": 1,
+      "sellOrders": 6,
+      "buyVolume": 53317,
+      "sellVolume": 58353
+    },
+    {
+      "timestamp": 1733229611006,
+      "buyOrders": 1,
+      "sellOrders": 24,
+      "buyVolume": 40561,
+      "sellVolume": 73661
+    },
+    {
+      "timestamp": 1733233211006,
+      "buyOrders": 5,
+      "sellOrders": 5,
+      "buyVolume": 16498,
+      "sellVolume": 121848
+    },
+    {
+      "timestamp": 1733236811006,
+      "buyOrders": 3,
+      "sellOrders": 14,
+      "buyVolume": 27816,
+      "sellVolume": 59665
+    },
+    {
+      "timestamp": 1733240411006,
+      "buyOrders": 1,
+      "sellOrders": 5,
+      "buyVolume": 16991,
+      "sellVolume": 91856
+    },
+    {
+      "timestamp": 1733244011006,
+      "buyOrders": 7,
+      "sellOrders": 7,
+      "buyVolume": 39321,
+      "sellVolume": 95727
+    },
+    {
+      "timestamp": 1733247611006,
+      "buyOrders": 10,
+      "sellOrders": 21,
+      "buyVolume": 46118,
+      "sellVolume": 134597
+    },
+    {
+      "timestamp": 1733251211006,
+      "buyOrders": 2,
+      "sellOrders": 15,
+      "buyVolume": 49403,
+      "sellVolume": 68515
+    },
+    {
+      "timestamp": 1733254811006,
+      "buyOrders": 10,
+      "sellOrders": 11,
+      "buyVolume": 45231,
+      "sellVolume": 96948
+    },
+    {
+      "timestamp": 1733258411006,
+      "buyOrders": 1,
+      "sellOrders": 10,
+      "buyVolume": 21262,
+      "sellVolume": 115182
+    },
+    {
+      "timestamp": 1733262011006,
+      "buyOrders": 1,
+      "sellOrders": 18,
+      "buyVolume": 56107,
+      "sellVolume": 149569
+    },
+    {
+      "timestamp": 1733265611006,
+      "buyOrders": 10,
+      "sellOrders": 14,
+      "buyVolume": 42067,
+      "sellVolume": 118047
+    },
+    {
+      "timestamp": 1733269211006,
+      "buyOrders": 9,
+      "sellOrders": 16,
+      "buyVolume": 44872,
+      "sellVolume": 74751
+    },
+    {
+      "timestamp": 1733272811006,
+      "buyOrders": 1,
+      "sellOrders": 21,
+      "buyVolume": 46689,
+      "sellVolume": 90228
+    },
+    {
+      "timestamp": 1733276411006,
+      "buyOrders": 4,
+      "sellOrders": 7,
+      "buyVolume": 39183,
+      "sellVolume": 105692
+    },
+    {
+      "timestamp": 1733280011006,
+      "buyOrders": 4,
+      "sellOrders": 11,
+      "buyVolume": 29524,
+      "sellVolume": 62520
+    },
+    {
+      "timestamp": 1733283611006,
+      "buyOrders": 9,
+      "sellOrders": 13,
+      "buyVolume": 49088,
+      "sellVolume": 149397
+    },
+    {
+      "timestamp": 1733287211006,
+      "buyOrders": 2,
+      "sellOrders": 6,
+      "buyVolume": 17284,
+      "sellVolume": 76395
+    },
+    {
+      "timestamp": 1733290811006,
+      "buyOrders": 2,
+      "sellOrders": 23,
+      "buyVolume": 12192,
+      "sellVolume": 55541
+    },
+    {
+      "timestamp": 1733294411006,
+      "buyOrders": 5,
+      "sellOrders": 16,
+      "buyVolume": 39781,
+      "sellVolume": 59092
+    },
+    {
+      "timestamp": 1733298011006,
+      "buyOrders": 8,
+      "sellOrders": 20,
+      "buyVolume": 58076,
+      "sellVolume": 113302
+    },
+    {
+      "timestamp": 1733301611006,
+      "buyOrders": 2,
+      "sellOrders": 24,
+      "buyVolume": 32437,
+      "sellVolume": 80184
+    },
+    {
+      "timestamp": 1733305211006,
+      "buyOrders": 3,
+      "sellOrders": 17,
+      "buyVolume": 43811,
+      "sellVolume": 80541
+    },
+    {
+      "timestamp": 1733308811006,
+      "buyOrders": 10,
+      "sellOrders": 7,
+      "buyVolume": 14219,
+      "sellVolume": 134878
+    },
+    {
+      "timestamp": 1733312411006,
+      "buyOrders": 6,
+      "sellOrders": 20,
+      "buyVolume": 26841,
+      "sellVolume": 96851
+    },
+    {
+      "timestamp": 1733316011006,
+      "buyOrders": 1,
+      "sellOrders": 13,
+      "buyVolume": 17370,
+      "sellVolume": 115160
+    },
+    {
+      "timestamp": 1733319611006,
+      "buyOrders": 1,
+      "sellOrders": 14,
+      "buyVolume": 51529,
+      "sellVolume": 52260
+    },
+    {
+      "timestamp": 1733323211006,
+      "buyOrders": 2,
+      "sellOrders": 6,
+      "buyVolume": 16735,
+      "sellVolume": 122523
+    },
+    {
+      "timestamp": 1733326811006,
+      "buyOrders": 3,
+      "sellOrders": 22,
+      "buyVolume": 19654,
+      "sellVolume": 122114
+    },
+    {
+      "timestamp": 1733330411006,
+      "buyOrders": 1,
+      "sellOrders": 10,
+      "buyVolume": 53088,
+      "sellVolume": 119413
+    },
+    {
+      "timestamp": 1733334011006,
+      "buyOrders": 3,
+      "sellOrders": 18,
+      "buyVolume": 24413,
+      "sellVolume": 149267
+    },
+    {
+      "timestamp": 1733337611006,
+      "buyOrders": 8,
+      "sellOrders": 20,
+      "buyVolume": 32165,
+      "sellVolume": 118363
+    },
+    {
+      "timestamp": 1733341211006,
+      "buyOrders": 9,
+      "sellOrders": 8,
+      "buyVolume": 23900,
+      "sellVolume": 134968
+    },
+    {
+      "timestamp": 1733344811006,
+      "buyOrders": 6,
+      "sellOrders": 21,
+      "buyVolume": 21507,
+      "sellVolume": 138357
+    },
+    {
+      "timestamp": 1733348411006,
+      "buyOrders": 10,
+      "sellOrders": 8,
+      "buyVolume": 39990,
+      "sellVolume": 61031
+    },
+    {
+      "timestamp": 1733352011006,
+      "buyOrders": 8,
+      "sellOrders": 23,
+      "buyVolume": 10889,
+      "sellVolume": 58292
+    },
+    {
+      "timestamp": 1733355611006,
+      "buyOrders": 7,
+      "sellOrders": 11,
+      "buyVolume": 40196,
+      "sellVolume": 80019
+    },
+    {
+      "timestamp": 1733359211006,
+      "buyOrders": 1,
+      "sellOrders": 12,
+      "buyVolume": 20553,
+      "sellVolume": 145161
+    },
+    {
+      "timestamp": 1733362811006,
+      "buyOrders": 5,
+      "sellOrders": 20,
+      "buyVolume": 18872,
+      "sellVolume": 57957
+    },
+    {
+      "timestamp": 1733366411006,
+      "buyOrders": 3,
+      "sellOrders": 19,
+      "buyVolume": 15935,
+      "sellVolume": 107125
+    },
+    {
+      "timestamp": 1733370011006,
+      "buyOrders": 8,
+      "sellOrders": 14,
+      "buyVolume": 29003,
+      "sellVolume": 107693
+    },
+    {
+      "timestamp": 1733373611006,
+      "buyOrders": 5,
+      "sellOrders": 24,
+      "buyVolume": 32455,
+      "sellVolume": 70087
+    },
+    {
+      "timestamp": 1733377211006,
+      "buyOrders": 7,
+      "sellOrders": 24,
+      "buyVolume": 25687,
+      "sellVolume": 123512
+    },
+    {
+      "timestamp": 1733380811006,
+      "buyOrders": 10,
+      "sellOrders": 9,
+      "buyVolume": 59211,
+      "sellVolume": 75245
+    },
+    {
+      "timestamp": 1733384411006,
+      "buyOrders": 4,
+      "sellOrders": 12,
+      "buyVolume": 20538,
+      "sellVolume": 89305
+    },
+    {
+      "timestamp": 1733388011006,
+      "buyOrders": 1,
+      "sellOrders": 19,
+      "buyVolume": 34822,
+      "sellVolume": 119728
+    },
+    {
+      "timestamp": 1733391611006,
+      "buyOrders": 4,
+      "sellOrders": 23,
+      "buyVolume": 55221,
+      "sellVolume": 97636
+    },
+    {
+      "timestamp": 1733395211006,
+      "buyOrders": 10,
+      "sellOrders": 14,
+      "buyVolume": 34001,
+      "sellVolume": 125822
+    },
+    {
+      "timestamp": 1733398811006,
+      "buyOrders": 4,
+      "sellOrders": 24,
+      "buyVolume": 51385,
+      "sellVolume": 65548
+    },
+    {
+      "timestamp": 1733402411006,
+      "buyOrders": 1,
+      "sellOrders": 20,
+      "buyVolume": 47529,
+      "sellVolume": 132009
+    },
+    {
+      "timestamp": 1733406011006,
+      "buyOrders": 8,
+      "sellOrders": 23,
+      "buyVolume": 24950,
+      "sellVolume": 142063
+    },
+    {
+      "timestamp": 1733409611006,
+      "buyOrders": 2,
+      "sellOrders": 16,
+      "buyVolume": 34066,
+      "sellVolume": 75090
+    },
+    {
+      "timestamp": 1733413211006,
+      "buyOrders": 7,
+      "sellOrders": 18,
+      "buyVolume": 14040,
+      "sellVolume": 57572
+    },
+    {
+      "timestamp": 1733416811006,
+      "buyOrders": 1,
+      "sellOrders": 19,
+      "buyVolume": 21286,
+      "sellVolume": 118167
+    },
+    {
+      "timestamp": 1733420411006,
+      "buyOrders": 5,
+      "sellOrders": 10,
+      "buyVolume": 11423,
+      "sellVolume": 79395
+    },
+    {
+      "timestamp": 1733424011006,
+      "buyOrders": 8,
+      "sellOrders": 17,
+      "buyVolume": 31605,
+      "sellVolume": 92239
+    },
+    {
+      "timestamp": 1733427611006,
+      "buyOrders": 10,
+      "sellOrders": 18,
+      "buyVolume": 47062,
+      "sellVolume": 108868
+    },
+    {
+      "timestamp": 1733431211006,
+      "buyOrders": 3,
+      "sellOrders": 10,
+      "buyVolume": 55391,
+      "sellVolume": 105735
+    },
+    {
+      "timestamp": 1733434811006,
+      "buyOrders": 5,
+      "sellOrders": 23,
+      "buyVolume": 16040,
+      "sellVolume": 55098
+    },
+    {
+      "timestamp": 1733438411006,
+      "buyOrders": 3,
+      "sellOrders": 14,
+      "buyVolume": 20689,
+      "sellVolume": 90633
+    },
+    {
+      "timestamp": 1733442011006,
+      "buyOrders": 7,
+      "sellOrders": 6,
+      "buyVolume": 19159,
+      "sellVolume": 95932
+    },
+    {
+      "timestamp": 1733445611006,
+      "buyOrders": 10,
+      "sellOrders": 24,
+      "buyVolume": 27403,
+      "sellVolume": 115537
+    },
+    {
+      "timestamp": 1733449211006,
+      "buyOrders": 7,
+      "sellOrders": 9,
+      "buyVolume": 42893,
+      "sellVolume": 77672
+    },
+    {
+      "timestamp": 1733452811006,
+      "buyOrders": 4,
+      "sellOrders": 5,
+      "buyVolume": 51399,
+      "sellVolume": 124654
+    },
+    {
+      "timestamp": 1733456411006,
+      "buyOrders": 6,
+      "sellOrders": 22,
+      "buyVolume": 52609,
+      "sellVolume": 141612
+    },
+    {
+      "timestamp": 1733460011006,
+      "buyOrders": 6,
+      "sellOrders": 22,
+      "buyVolume": 47651,
+      "sellVolume": 114677
+    },
+    {
+      "timestamp": 1733463611006,
+      "buyOrders": 10,
+      "sellOrders": 24,
+      "buyVolume": 54704,
+      "sellVolume": 99297
+    },
+    {
+      "timestamp": 1733467211006,
+      "buyOrders": 1,
+      "sellOrders": 16,
+      "buyVolume": 23458,
+      "sellVolume": 90218
+    },
+    {
+      "timestamp": 1733470811006,
+      "buyOrders": 8,
+      "sellOrders": 15,
+      "buyVolume": 44265,
+      "sellVolume": 109844
+    },
+    {
+      "timestamp": 1733474411006,
+      "buyOrders": 9,
+      "sellOrders": 24,
+      "buyVolume": 43761,
+      "sellVolume": 50680
+    },
+    {
+      "timestamp": 1733478011006,
+      "buyOrders": 3,
+      "sellOrders": 18,
+      "buyVolume": 29096,
+      "sellVolume": 58040
+    },
+    {
+      "timestamp": 1733481611006,
+      "buyOrders": 8,
+      "sellOrders": 19,
+      "buyVolume": 40534,
+      "sellVolume": 132627
+    },
+    {
+      "timestamp": 1733485211006,
+      "buyOrders": 7,
+      "sellOrders": 13,
+      "buyVolume": 50897,
+      "sellVolume": 90867
+    },
+    {
+      "timestamp": 1733488811006,
+      "buyOrders": 8,
+      "sellOrders": 16,
+      "buyVolume": 46747,
+      "sellVolume": 98557
+    },
+    {
+      "timestamp": 1733492411006,
+      "buyOrders": 1,
+      "sellOrders": 21,
+      "buyVolume": 18127,
+      "sellVolume": 81759
+    },
+    {
+      "timestamp": 1733496011006,
+      "buyOrders": 3,
+      "sellOrders": 14,
+      "buyVolume": 31957,
+      "sellVolume": 64511
+    },
+    {
+      "timestamp": 1733499611006,
+      "buyOrders": 8,
+      "sellOrders": 21,
+      "buyVolume": 27430,
+      "sellVolume": 59371
+    },
+    {
+      "timestamp": 1733503211006,
+      "buyOrders": 7,
+      "sellOrders": 16,
+      "buyVolume": 20788,
+      "sellVolume": 101586
+    },
+    {
+      "timestamp": 1733506811006,
+      "buyOrders": 8,
+      "sellOrders": 17,
+      "buyVolume": 45145,
+      "sellVolume": 101060
+    },
+    {
+      "timestamp": 1733510411006,
+      "buyOrders": 8,
+      "sellOrders": 10,
+      "buyVolume": 50408,
+      "sellVolume": 102101
+    },
+    {
+      "timestamp": 1733514011006,
+      "buyOrders": 2,
+      "sellOrders": 16,
+      "buyVolume": 46254,
+      "sellVolume": 134776
+    },
+    {
+      "timestamp": 1733517611006,
+      "buyOrders": 1,
+      "sellOrders": 14,
+      "buyVolume": 12337,
+      "sellVolume": 82981
+    },
+    {
+      "timestamp": 1733521211006,
+      "buyOrders": 3,
+      "sellOrders": 9,
+      "buyVolume": 30246,
+      "sellVolume": 70195
+    },
+    {
+      "timestamp": 1733524811006,
+      "buyOrders": 7,
+      "sellOrders": 16,
+      "buyVolume": 16755,
+      "sellVolume": 131435
+    },
+    {
+      "timestamp": 1733528411006,
+      "buyOrders": 5,
+      "sellOrders": 6,
+      "buyVolume": 33386,
+      "sellVolume": 107959
+    },
+    {
+      "timestamp": 1733532011006,
+      "buyOrders": 5,
+      "sellOrders": 6,
+      "buyVolume": 18356,
+      "sellVolume": 87283
+    },
+    {
+      "timestamp": 1733535611006,
+      "buyOrders": 7,
+      "sellOrders": 23,
+      "buyVolume": 24395,
+      "sellVolume": 132348
+    },
+    {
+      "timestamp": 1733539211006,
+      "buyOrders": 7,
+      "sellOrders": 13,
+      "buyVolume": 58797,
+      "sellVolume": 71745
+    },
+    {
+      "timestamp": 1733542811006,
+      "buyOrders": 2,
+      "sellOrders": 19,
+      "buyVolume": 41593,
+      "sellVolume": 86190
+    },
+    {
+      "timestamp": 1733546411006,
+      "buyOrders": 2,
+      "sellOrders": 19,
+      "buyVolume": 54836,
+      "sellVolume": 101438
+    },
+    {
+      "timestamp": 1733550011006,
+      "buyOrders": 8,
+      "sellOrders": 6,
+      "buyVolume": 32615,
+      "sellVolume": 137054
+    },
+    {
+      "timestamp": 1733553611006,
+      "buyOrders": 10,
+      "sellOrders": 8,
+      "buyVolume": 24739,
+      "sellVolume": 89213
+    },
+    {
+      "timestamp": 1733557211006,
+      "buyOrders": 1,
+      "sellOrders": 15,
+      "buyVolume": 25708,
+      "sellVolume": 54819
+    },
+    {
+      "timestamp": 1733560811006,
+      "buyOrders": 10,
+      "sellOrders": 18,
+      "buyVolume": 24367,
+      "sellVolume": 120301
+    },
+    {
+      "timestamp": 1733564411006,
+      "buyOrders": 1,
+      "sellOrders": 8,
+      "buyVolume": 21957,
+      "sellVolume": 107542
+    },
+    {
+      "timestamp": 1733568011006,
+      "buyOrders": 4,
+      "sellOrders": 15,
+      "buyVolume": 13387,
+      "sellVolume": 77852
+    },
+    {
+      "timestamp": 1733571611006,
+      "buyOrders": 4,
+      "sellOrders": 17,
+      "buyVolume": 12807,
+      "sellVolume": 88394
+    },
+    {
+      "timestamp": 1733575211006,
+      "buyOrders": 8,
+      "sellOrders": 21,
+      "buyVolume": 22854,
+      "sellVolume": 142022
+    },
+    {
+      "timestamp": 1733578811006,
+      "buyOrders": 1,
+      "sellOrders": 19,
+      "buyVolume": 12066,
+      "sellVolume": 51856
+    },
+    {
+      "timestamp": 1733582411006,
+      "buyOrders": 9,
+      "sellOrders": 15,
+      "buyVolume": 53791,
+      "sellVolume": 121603
+    },
+    {
+      "timestamp": 1733586011006,
+      "buyOrders": 3,
+      "sellOrders": 21,
+      "buyVolume": 38548,
+      "sellVolume": 67250
+    },
+    {
+      "timestamp": 1733589611006,
+      "buyOrders": 4,
+      "sellOrders": 20,
+      "buyVolume": 22100,
+      "sellVolume": 120172
+    },
+    {
+      "timestamp": 1733593211006,
+      "buyOrders": 10,
+      "sellOrders": 16,
+      "buyVolume": 48060,
+      "sellVolume": 135328
+    },
+    {
+      "timestamp": 1733596811006,
+      "buyOrders": 9,
+      "sellOrders": 6,
+      "buyVolume": 31496,
+      "sellVolume": 83005
+    },
+    {
+      "timestamp": 1733600411006,
+      "buyOrders": 5,
+      "sellOrders": 13,
+      "buyVolume": 29236,
+      "sellVolume": 65975
+    },
+    {
+      "timestamp": 1733604011006,
+      "buyOrders": 3,
+      "sellOrders": 15,
+      "buyVolume": 43993,
+      "sellVolume": 72634
+    },
+    {
+      "timestamp": 1733607611006,
+      "buyOrders": 5,
+      "sellOrders": 13,
+      "buyVolume": 54150,
+      "sellVolume": 124651
+    },
+    {
+      "timestamp": 1733611211006,
+      "buyOrders": 8,
+      "sellOrders": 13,
+      "buyVolume": 33489,
+      "sellVolume": 116694
+    },
+    {
+      "timestamp": 1733614811006,
+      "buyOrders": 3,
+      "sellOrders": 5,
+      "buyVolume": 35324,
+      "sellVolume": 141855
+    },
+    {
+      "timestamp": 1733618411006,
+      "buyOrders": 4,
+      "sellOrders": 13,
+      "buyVolume": 38914,
+      "sellVolume": 131534
+    },
+    {
+      "timestamp": 1733622011006,
+      "buyOrders": 3,
+      "sellOrders": 24,
+      "buyVolume": 17286,
+      "sellVolume": 98728
+    },
+    {
+      "timestamp": 1733625611006,
+      "buyOrders": 7,
+      "sellOrders": 24,
+      "buyVolume": 15763,
+      "sellVolume": 127191
+    },
+    {
+      "timestamp": 1733629211006,
+      "buyOrders": 9,
+      "sellOrders": 22,
+      "buyVolume": 17780,
+      "sellVolume": 100690
+    },
+    {
+      "timestamp": 1733632811006,
+      "buyOrders": 1,
+      "sellOrders": 21,
+      "buyVolume": 32542,
+      "sellVolume": 122884
+    },
+    {
+      "timestamp": 1733636411006,
+      "buyOrders": 3,
+      "sellOrders": 13,
+      "buyVolume": 40318,
+      "sellVolume": 143742
+    },
+    {
+      "timestamp": 1733640011006,
+      "buyOrders": 6,
+      "sellOrders": 13,
+      "buyVolume": 14594,
+      "sellVolume": 65498
+    },
+    {
+      "timestamp": 1733643611006,
+      "buyOrders": 7,
+      "sellOrders": 23,
+      "buyVolume": 48822,
+      "sellVolume": 132002
+    },
+    {
+      "timestamp": 1733647211006,
+      "buyOrders": 3,
+      "sellOrders": 10,
+      "buyVolume": 51531,
+      "sellVolume": 72788
+    },
+    {
+      "timestamp": 1733650811006,
+      "buyOrders": 3,
+      "sellOrders": 6,
+      "buyVolume": 15584,
+      "sellVolume": 84186
+    },
+    {
+      "timestamp": 1733654411006,
+      "buyOrders": 8,
+      "sellOrders": 6,
+      "buyVolume": 18396,
+      "sellVolume": 59249
+    },
+    {
+      "timestamp": 1733658011006,
+      "buyOrders": 1,
+      "sellOrders": 12,
+      "buyVolume": 33895,
+      "sellVolume": 145853
+    },
+    {
+      "timestamp": 1733661611006,
+      "buyOrders": 1,
+      "sellOrders": 17,
+      "buyVolume": 35633,
+      "sellVolume": 103555
+    },
+    {
+      "timestamp": 1733665211006,
+      "buyOrders": 8,
+      "sellOrders": 15,
+      "buyVolume": 45917,
+      "sellVolume": 115885
+    },
+    {
+      "timestamp": 1733668811006,
+      "buyOrders": 9,
+      "sellOrders": 12,
+      "buyVolume": 10391,
+      "sellVolume": 84243
+    },
+    {
+      "timestamp": 1733672411006,
+      "buyOrders": 4,
+      "sellOrders": 16,
+      "buyVolume": 59596,
+      "sellVolume": 118012
+    },
+    {
+      "timestamp": 1733676011006,
+      "buyOrders": 8,
+      "sellOrders": 23,
+      "buyVolume": 25315,
+      "sellVolume": 85916
+    },
+    {
+      "timestamp": 1733679611006,
+      "buyOrders": 6,
+      "sellOrders": 23,
+      "buyVolume": 24013,
+      "sellVolume": 117051
+    },
+    {
+      "timestamp": 1733683211006,
+      "buyOrders": 6,
+      "sellOrders": 10,
+      "buyVolume": 57639,
+      "sellVolume": 92461
+    },
+    {
+      "timestamp": 1733686811006,
+      "buyOrders": 9,
+      "sellOrders": 20,
+      "buyVolume": 42219,
+      "sellVolume": 108472
+    },
+    {
+      "timestamp": 1733690411006,
+      "buyOrders": 8,
+      "sellOrders": 8,
+      "buyVolume": 17385,
+      "sellVolume": 108277
+    },
+    {
+      "timestamp": 1733694011006,
+      "buyOrders": 7,
+      "sellOrders": 18,
+      "buyVolume": 28468,
+      "sellVolume": 109967
+    },
+    {
+      "timestamp": 1733697611006,
+      "buyOrders": 10,
+      "sellOrders": 18,
+      "buyVolume": 10889,
+      "sellVolume": 104286
+    },
+    {
+      "timestamp": 1733701211006,
+      "buyOrders": 10,
+      "sellOrders": 21,
+      "buyVolume": 31809,
+      "sellVolume": 100335
+    },
+    {
+      "timestamp": 1733704811006,
+      "buyOrders": 4,
+      "sellOrders": 16,
+      "buyVolume": 16395,
+      "sellVolume": 90827
+    },
+    {
+      "timestamp": 1733708411006,
+      "buyOrders": 6,
+      "sellOrders": 10,
+      "buyVolume": 27444,
+      "sellVolume": 127892
+    },
+    {
+      "timestamp": 1733708799104,
+      "buyOrders": 1,
+      "sellOrders": 2,
+      "buyVolume": 2008000000,
+      "sellVolume": 4961207931772
+    },
+    {
+      "timestamp": 1733709137831,
+      "buyOrders": 1,
+      "sellOrders": 2,
+      "buyVolume": 2008000000,
+      "sellVolume": 4961207931772
+    }
+  ],
+  "CHAOS": [
+    {
+      "timestamp": 1733107211006,
+      "buyOrders": 13,
+      "sellOrders": 12,
+      "buyVolume": 29236,
+      "sellVolume": 96321237
+    },
+    {
+      "timestamp": 1733110811006,
+      "buyOrders": 4,
+      "sellOrders": 10,
+      "buyVolume": 68968,
+      "sellVolume": 102273854
+    },
+    {
+      "timestamp": 1733114411006,
+      "buyOrders": 1,
+      "sellOrders": 6,
+      "buyVolume": 100496,
+      "sellVolume": 69595298
+    },
+    {
+      "timestamp": 1733118011006,
+      "buyOrders": 2,
+      "sellOrders": 32,
+      "buyVolume": 79994,
+      "sellVolume": 77019587
+    },
+    {
+      "timestamp": 1733121611006,
+      "buyOrders": 2,
+      "sellOrders": 5,
+      "buyVolume": 110575,
+      "sellVolume": 119854090
+    },
+    {
+      "timestamp": 1733125211006,
+      "buyOrders": 14,
+      "sellOrders": 25,
+      "buyVolume": 63550,
+      "sellVolume": 119547682
+    },
+    {
+      "timestamp": 1733128811006,
+      "buyOrders": 9,
+      "sellOrders": 15,
+      "buyVolume": 85302,
+      "sellVolume": 125022659
+    },
+    {
+      "timestamp": 1733132411006,
+      "buyOrders": 1,
+      "sellOrders": 27,
+      "buyVolume": 65882,
+      "sellVolume": 94732515
+    },
+    {
+      "timestamp": 1733136011006,
+      "buyOrders": 7,
+      "sellOrders": 8,
+      "buyVolume": 33033,
+      "sellVolume": 124189794
+    },
+    {
+      "timestamp": 1733139611006,
+      "buyOrders": 1,
+      "sellOrders": 14,
+      "buyVolume": 90775,
+      "sellVolume": 58131427
+    },
+    {
+      "timestamp": 1733143211006,
+      "buyOrders": 15,
+      "sellOrders": 15,
+      "buyVolume": 91120,
+      "sellVolume": 99336934
+    },
+    {
+      "timestamp": 1733146811006,
+      "buyOrders": 5,
+      "sellOrders": 34,
+      "buyVolume": 96106,
+      "sellVolume": 106404357
+    },
+    {
+      "timestamp": 1733150411006,
+      "buyOrders": 3,
+      "sellOrders": 24,
+      "buyVolume": 91904,
+      "sellVolume": 81424068
+    },
+    {
+      "timestamp": 1733154011006,
+      "buyOrders": 7,
+      "sellOrders": 32,
+      "buyVolume": 38468,
+      "sellVolume": 121683904
+    },
+    {
+      "timestamp": 1733157611006,
+      "buyOrders": 5,
+      "sellOrders": 22,
+      "buyVolume": 107721,
+      "sellVolume": 59192976
+    },
+    {
+      "timestamp": 1733161211006,
+      "buyOrders": 7,
+      "sellOrders": 28,
+      "buyVolume": 25463,
+      "sellVolume": 124087135
+    },
+    {
+      "timestamp": 1733164811006,
+      "buyOrders": 11,
+      "sellOrders": 22,
+      "buyVolume": 98432,
+      "sellVolume": 128812900
+    },
+    {
+      "timestamp": 1733168411006,
+      "buyOrders": 11,
+      "sellOrders": 17,
+      "buyVolume": 65633,
+      "sellVolume": 63507702
+    },
+    {
+      "timestamp": 1733172011006,
+      "buyOrders": 8,
+      "sellOrders": 22,
+      "buyVolume": 99442,
+      "sellVolume": 103385829
+    },
+    {
+      "timestamp": 1733175611006,
+      "buyOrders": 10,
+      "sellOrders": 16,
+      "buyVolume": 109692,
+      "sellVolume": 83894223
+    },
+    {
+      "timestamp": 1733179211006,
+      "buyOrders": 3,
+      "sellOrders": 14,
+      "buyVolume": 77930,
+      "sellVolume": 123462278
+    },
+    {
+      "timestamp": 1733182811006,
+      "buyOrders": 8,
+      "sellOrders": 25,
+      "buyVolume": 82770,
+      "sellVolume": 91187053
+    },
+    {
+      "timestamp": 1733186411006,
+      "buyOrders": 10,
+      "sellOrders": 30,
+      "buyVolume": 24667,
+      "sellVolume": 73819986
+    },
+    {
+      "timestamp": 1733190011006,
+      "buyOrders": 3,
+      "sellOrders": 16,
+      "buyVolume": 30503,
+      "sellVolume": 68869498
+    },
+    {
+      "timestamp": 1733193611006,
+      "buyOrders": 3,
+      "sellOrders": 21,
+      "buyVolume": 42670,
+      "sellVolume": 57216078
+    },
+    {
+      "timestamp": 1733197211006,
+      "buyOrders": 13,
+      "sellOrders": 23,
+      "buyVolume": 64160,
+      "sellVolume": 101129916
+    },
+    {
+      "timestamp": 1733200811006,
+      "buyOrders": 10,
+      "sellOrders": 21,
+      "buyVolume": 55145,
+      "sellVolume": 73385529
+    },
+    {
+      "timestamp": 1733204411006,
+      "buyOrders": 14,
+      "sellOrders": 23,
+      "buyVolume": 25775,
+      "sellVolume": 73637169
+    },
+    {
+      "timestamp": 1733208011006,
+      "buyOrders": 8,
+      "sellOrders": 5,
+      "buyVolume": 56658,
+      "sellVolume": 79924659
+    },
+    {
+      "timestamp": 1733211611006,
+      "buyOrders": 5,
+      "sellOrders": 21,
+      "buyVolume": 61885,
+      "sellVolume": 81918683
+    },
+    {
+      "timestamp": 1733215211006,
+      "buyOrders": 5,
+      "sellOrders": 31,
+      "buyVolume": 44138,
+      "sellVolume": 108357738
+    },
+    {
+      "timestamp": 1733218811006,
+      "buyOrders": 9,
+      "sellOrders": 16,
+      "buyVolume": 100377,
+      "sellVolume": 116035599
+    },
+    {
+      "timestamp": 1733222411006,
+      "buyOrders": 15,
+      "sellOrders": 27,
+      "buyVolume": 47006,
+      "sellVolume": 58875623
+    },
+    {
+      "timestamp": 1733226011006,
+      "buyOrders": 12,
+      "sellOrders": 6,
+      "buyVolume": 69328,
+      "sellVolume": 89876976
+    },
+    {
+      "timestamp": 1733229611006,
+      "buyOrders": 13,
+      "sellOrders": 19,
+      "buyVolume": 80990,
+      "sellVolume": 113591138
+    },
+    {
+      "timestamp": 1733233211006,
+      "buyOrders": 3,
+      "sellOrders": 5,
+      "buyVolume": 75962,
+      "sellVolume": 93765621
+    },
+    {
+      "timestamp": 1733236811006,
+      "buyOrders": 13,
+      "sellOrders": 8,
+      "buyVolume": 80110,
+      "sellVolume": 105831281
+    },
+    {
+      "timestamp": 1733240411006,
+      "buyOrders": 1,
+      "sellOrders": 32,
+      "buyVolume": 38599,
+      "sellVolume": 125352899
+    },
+    {
+      "timestamp": 1733244011006,
+      "buyOrders": 10,
+      "sellOrders": 8,
+      "buyVolume": 81392,
+      "sellVolume": 105445796
+    },
+    {
+      "timestamp": 1733247611006,
+      "buyOrders": 7,
+      "sellOrders": 18,
+      "buyVolume": 102801,
+      "sellVolume": 61432414
+    },
+    {
+      "timestamp": 1733251211006,
+      "buyOrders": 6,
+      "sellOrders": 16,
+      "buyVolume": 24598,
+      "sellVolume": 62709267
+    },
+    {
+      "timestamp": 1733254811006,
+      "buyOrders": 15,
+      "sellOrders": 33,
+      "buyVolume": 65137,
+      "sellVolume": 123664383
+    },
+    {
+      "timestamp": 1733258411006,
+      "buyOrders": 2,
+      "sellOrders": 16,
+      "buyVolume": 100215,
+      "sellVolume": 73505028
+    },
+    {
+      "timestamp": 1733262011006,
+      "buyOrders": 5,
+      "sellOrders": 10,
+      "buyVolume": 96136,
+      "sellVolume": 117098714
+    },
+    {
+      "timestamp": 1733265611006,
+      "buyOrders": 14,
+      "sellOrders": 29,
+      "buyVolume": 94962,
+      "sellVolume": 98339833
+    },
+    {
+      "timestamp": 1733269211006,
+      "buyOrders": 11,
+      "sellOrders": 31,
+      "buyVolume": 36081,
+      "sellVolume": 88424241
+    },
+    {
+      "timestamp": 1733272811006,
+      "buyOrders": 6,
+      "sellOrders": 29,
+      "buyVolume": 41573,
+      "sellVolume": 68517663
+    },
+    {
+      "timestamp": 1733276411006,
+      "buyOrders": 9,
+      "sellOrders": 28,
+      "buyVolume": 49737,
+      "sellVolume": 124463170
+    },
+    {
+      "timestamp": 1733280011006,
+      "buyOrders": 11,
+      "sellOrders": 25,
+      "buyVolume": 41854,
+      "sellVolume": 124171375
+    },
+    {
+      "timestamp": 1733283611006,
+      "buyOrders": 14,
+      "sellOrders": 17,
+      "buyVolume": 77854,
+      "sellVolume": 129212827
+    },
+    {
+      "timestamp": 1733287211006,
+      "buyOrders": 2,
+      "sellOrders": 27,
+      "buyVolume": 84421,
+      "sellVolume": 92102145
+    },
+    {
+      "timestamp": 1733290811006,
+      "buyOrders": 10,
+      "sellOrders": 15,
+      "buyVolume": 36411,
+      "sellVolume": 88104191
+    },
+    {
+      "timestamp": 1733294411006,
+      "buyOrders": 6,
+      "sellOrders": 9,
+      "buyVolume": 57912,
+      "sellVolume": 128096263
+    },
+    {
+      "timestamp": 1733298011006,
+      "buyOrders": 15,
+      "sellOrders": 20,
+      "buyVolume": 58811,
+      "sellVolume": 101210329
+    },
+    {
+      "timestamp": 1733301611006,
+      "buyOrders": 2,
+      "sellOrders": 21,
+      "buyVolume": 94752,
+      "sellVolume": 89679072
+    },
+    {
+      "timestamp": 1733305211006,
+      "buyOrders": 3,
+      "sellOrders": 20,
+      "buyVolume": 29039,
+      "sellVolume": 52474542
+    },
+    {
+      "timestamp": 1733308811006,
+      "buyOrders": 7,
+      "sellOrders": 5,
+      "buyVolume": 90626,
+      "sellVolume": 90721733
+    },
+    {
+      "timestamp": 1733312411006,
+      "buyOrders": 6,
+      "sellOrders": 29,
+      "buyVolume": 117075,
+      "sellVolume": 68666039
+    },
+    {
+      "timestamp": 1733316011006,
+      "buyOrders": 7,
+      "sellOrders": 21,
+      "buyVolume": 90943,
+      "sellVolume": 102235733
+    },
+    {
+      "timestamp": 1733319611006,
+      "buyOrders": 4,
+      "sellOrders": 26,
+      "buyVolume": 71693,
+      "sellVolume": 75869478
+    },
+    {
+      "timestamp": 1733323211006,
+      "buyOrders": 3,
+      "sellOrders": 33,
+      "buyVolume": 31132,
+      "sellVolume": 72971025
+    },
+    {
+      "timestamp": 1733326811006,
+      "buyOrders": 12,
+      "sellOrders": 13,
+      "buyVolume": 108521,
+      "sellVolume": 86632030
+    },
+    {
+      "timestamp": 1733330411006,
+      "buyOrders": 4,
+      "sellOrders": 32,
+      "buyVolume": 58729,
+      "sellVolume": 107755958
+    },
+    {
+      "timestamp": 1733334011006,
+      "buyOrders": 14,
+      "sellOrders": 28,
+      "buyVolume": 74291,
+      "sellVolume": 75448923
+    },
+    {
+      "timestamp": 1733337611006,
+      "buyOrders": 10,
+      "sellOrders": 13,
+      "buyVolume": 41822,
+      "sellVolume": 63257001
+    },
+    {
+      "timestamp": 1733341211006,
+      "buyOrders": 2,
+      "sellOrders": 11,
+      "buyVolume": 93535,
+      "sellVolume": 98842964
+    },
+    {
+      "timestamp": 1733344811006,
+      "buyOrders": 15,
+      "sellOrders": 24,
+      "buyVolume": 97771,
+      "sellVolume": 124098382
+    },
+    {
+      "timestamp": 1733348411006,
+      "buyOrders": 14,
+      "sellOrders": 24,
+      "buyVolume": 55084,
+      "sellVolume": 93910851
+    },
+    {
+      "timestamp": 1733352011006,
+      "buyOrders": 12,
+      "sellOrders": 14,
+      "buyVolume": 111018,
+      "sellVolume": 53848921
+    },
+    {
+      "timestamp": 1733355611006,
+      "buyOrders": 6,
+      "sellOrders": 34,
+      "buyVolume": 40861,
+      "sellVolume": 84245535
+    },
+    {
+      "timestamp": 1733359211006,
+      "buyOrders": 4,
+      "sellOrders": 25,
+      "buyVolume": 117162,
+      "sellVolume": 102214221
+    },
+    {
+      "timestamp": 1733362811006,
+      "buyOrders": 8,
+      "sellOrders": 19,
+      "buyVolume": 96110,
+      "sellVolume": 78129376
+    },
+    {
+      "timestamp": 1733366411006,
+      "buyOrders": 4,
+      "sellOrders": 15,
+      "buyVolume": 65177,
+      "sellVolume": 118524970
+    },
+    {
+      "timestamp": 1733370011006,
+      "buyOrders": 3,
+      "sellOrders": 24,
+      "buyVolume": 38580,
+      "sellVolume": 67650258
+    },
+    {
+      "timestamp": 1733373611006,
+      "buyOrders": 7,
+      "sellOrders": 5,
+      "buyVolume": 66761,
+      "sellVolume": 119243141
+    },
+    {
+      "timestamp": 1733377211006,
+      "buyOrders": 8,
+      "sellOrders": 22,
+      "buyVolume": 90232,
+      "sellVolume": 57422449
+    },
+    {
+      "timestamp": 1733380811006,
+      "buyOrders": 4,
+      "sellOrders": 28,
+      "buyVolume": 49052,
+      "sellVolume": 56708980
+    },
+    {
+      "timestamp": 1733384411006,
+      "buyOrders": 8,
+      "sellOrders": 33,
+      "buyVolume": 95266,
+      "sellVolume": 50663730
+    },
+    {
+      "timestamp": 1733388011006,
+      "buyOrders": 9,
+      "sellOrders": 12,
+      "buyVolume": 50513,
+      "sellVolume": 70721181
+    },
+    {
+      "timestamp": 1733391611006,
+      "buyOrders": 3,
+      "sellOrders": 17,
+      "buyVolume": 109168,
+      "sellVolume": 113061525
+    },
+    {
+      "timestamp": 1733395211006,
+      "buyOrders": 4,
+      "sellOrders": 20,
+      "buyVolume": 62592,
+      "sellVolume": 88782640
+    },
+    {
+      "timestamp": 1733398811006,
+      "buyOrders": 11,
+      "sellOrders": 7,
+      "buyVolume": 107003,
+      "sellVolume": 128601915
+    },
+    {
+      "timestamp": 1733402411006,
+      "buyOrders": 5,
+      "sellOrders": 27,
+      "buyVolume": 74168,
+      "sellVolume": 96168981
+    },
+    {
+      "timestamp": 1733406011006,
+      "buyOrders": 3,
+      "sellOrders": 7,
+      "buyVolume": 31545,
+      "sellVolume": 110044772
+    },
+    {
+      "timestamp": 1733409611006,
+      "buyOrders": 1,
+      "sellOrders": 10,
+      "buyVolume": 92374,
+      "sellVolume": 89825619
+    },
+    {
+      "timestamp": 1733413211006,
+      "buyOrders": 7,
+      "sellOrders": 13,
+      "buyVolume": 24507,
+      "sellVolume": 77975855
+    },
+    {
+      "timestamp": 1733416811006,
+      "buyOrders": 9,
+      "sellOrders": 19,
+      "buyVolume": 107049,
+      "sellVolume": 85887878
+    },
+    {
+      "timestamp": 1733420411006,
+      "buyOrders": 10,
+      "sellOrders": 29,
+      "buyVolume": 27464,
+      "sellVolume": 55210245
+    },
+    {
+      "timestamp": 1733424011006,
+      "buyOrders": 4,
+      "sellOrders": 11,
+      "buyVolume": 31445,
+      "sellVolume": 83838007
+    },
+    {
+      "timestamp": 1733427611006,
+      "buyOrders": 12,
+      "sellOrders": 15,
+      "buyVolume": 114993,
+      "sellVolume": 56511341
+    },
+    {
+      "timestamp": 1733431211006,
+      "buyOrders": 8,
+      "sellOrders": 10,
+      "buyVolume": 96085,
+      "sellVolume": 100288708
+    },
+    {
+      "timestamp": 1733434811006,
+      "buyOrders": 12,
+      "sellOrders": 26,
+      "buyVolume": 109138,
+      "sellVolume": 111628137
+    },
+    {
+      "timestamp": 1733438411006,
+      "buyOrders": 8,
+      "sellOrders": 16,
+      "buyVolume": 82423,
+      "sellVolume": 88938014
+    },
+    {
+      "timestamp": 1733442011006,
+      "buyOrders": 1,
+      "sellOrders": 9,
+      "buyVolume": 85409,
+      "sellVolume": 77674930
+    },
+    {
+      "timestamp": 1733445611006,
+      "buyOrders": 10,
+      "sellOrders": 30,
+      "buyVolume": 96714,
+      "sellVolume": 86384376
+    },
+    {
+      "timestamp": 1733449211006,
+      "buyOrders": 8,
+      "sellOrders": 24,
+      "buyVolume": 116768,
+      "sellVolume": 73179579
+    },
+    {
+      "timestamp": 1733452811006,
+      "buyOrders": 5,
+      "sellOrders": 10,
+      "buyVolume": 49829,
+      "sellVolume": 112125871
+    },
+    {
+      "timestamp": 1733456411006,
+      "buyOrders": 7,
+      "sellOrders": 14,
+      "buyVolume": 119150,
+      "sellVolume": 95578948
+    },
+    {
+      "timestamp": 1733460011006,
+      "buyOrders": 12,
+      "sellOrders": 5,
+      "buyVolume": 102562,
+      "sellVolume": 54986151
+    },
+    {
+      "timestamp": 1733463611006,
+      "buyOrders": 8,
+      "sellOrders": 22,
+      "buyVolume": 92548,
+      "sellVolume": 108985048
+    },
+    {
+      "timestamp": 1733467211006,
+      "buyOrders": 1,
+      "sellOrders": 25,
+      "buyVolume": 39263,
+      "sellVolume": 74236496
+    },
+    {
+      "timestamp": 1733470811006,
+      "buyOrders": 3,
+      "sellOrders": 11,
+      "buyVolume": 107770,
+      "sellVolume": 126186553
+    },
+    {
+      "timestamp": 1733474411006,
+      "buyOrders": 11,
+      "sellOrders": 15,
+      "buyVolume": 23901,
+      "sellVolume": 102417840
+    },
+    {
+      "timestamp": 1733478011006,
+      "buyOrders": 3,
+      "sellOrders": 24,
+      "buyVolume": 118349,
+      "sellVolume": 71088629
+    },
+    {
+      "timestamp": 1733481611006,
+      "buyOrders": 4,
+      "sellOrders": 13,
+      "buyVolume": 27064,
+      "sellVolume": 66736415
+    },
+    {
+      "timestamp": 1733485211006,
+      "buyOrders": 8,
+      "sellOrders": 11,
+      "buyVolume": 100233,
+      "sellVolume": 123676882
+    },
+    {
+      "timestamp": 1733488811006,
+      "buyOrders": 10,
+      "sellOrders": 12,
+      "buyVolume": 80929,
+      "sellVolume": 109935351
+    },
+    {
+      "timestamp": 1733492411006,
+      "buyOrders": 3,
+      "sellOrders": 15,
+      "buyVolume": 50551,
+      "sellVolume": 121586427
+    },
+    {
+      "timestamp": 1733496011006,
+      "buyOrders": 12,
+      "sellOrders": 16,
+      "buyVolume": 50351,
+      "sellVolume": 54562465
+    },
+    {
+      "timestamp": 1733499611006,
+      "buyOrders": 13,
+      "sellOrders": 16,
+      "buyVolume": 27010,
+      "sellVolume": 84300652
+    },
+    {
+      "timestamp": 1733503211006,
+      "buyOrders": 9,
+      "sellOrders": 34,
+      "buyVolume": 37105,
+      "sellVolume": 51847599
+    },
+    {
+      "timestamp": 1733506811006,
+      "buyOrders": 3,
+      "sellOrders": 33,
+      "buyVolume": 72791,
+      "sellVolume": 90835580
+    },
+    {
+      "timestamp": 1733510411006,
+      "buyOrders": 13,
+      "sellOrders": 19,
+      "buyVolume": 97733,
+      "sellVolume": 61161399
+    },
+    {
+      "timestamp": 1733514011006,
+      "buyOrders": 9,
+      "sellOrders": 16,
+      "buyVolume": 72447,
+      "sellVolume": 61217279
+    },
+    {
+      "timestamp": 1733517611006,
+      "buyOrders": 14,
+      "sellOrders": 32,
+      "buyVolume": 52327,
+      "sellVolume": 67102551
+    },
+    {
+      "timestamp": 1733521211006,
+      "buyOrders": 7,
+      "sellOrders": 12,
+      "buyVolume": 92811,
+      "sellVolume": 72469146
+    },
+    {
+      "timestamp": 1733524811006,
+      "buyOrders": 4,
+      "sellOrders": 5,
+      "buyVolume": 109390,
+      "sellVolume": 111437646
+    },
+    {
+      "timestamp": 1733528411006,
+      "buyOrders": 8,
+      "sellOrders": 15,
+      "buyVolume": 46403,
+      "sellVolume": 64660293
+    },
+    {
+      "timestamp": 1733532011006,
+      "buyOrders": 15,
+      "sellOrders": 21,
+      "buyVolume": 94343,
+      "sellVolume": 114885511
+    },
+    {
+      "timestamp": 1733535611006,
+      "buyOrders": 9,
+      "sellOrders": 9,
+      "buyVolume": 82251,
+      "sellVolume": 74984197
+    },
+    {
+      "timestamp": 1733539211006,
+      "buyOrders": 4,
+      "sellOrders": 28,
+      "buyVolume": 86689,
+      "sellVolume": 94022578
+    },
+    {
+      "timestamp": 1733542811006,
+      "buyOrders": 7,
+      "sellOrders": 28,
+      "buyVolume": 43621,
+      "sellVolume": 68216550
+    },
+    {
+      "timestamp": 1733546411006,
+      "buyOrders": 1,
+      "sellOrders": 12,
+      "buyVolume": 81087,
+      "sellVolume": 50450953
+    },
+    {
+      "timestamp": 1733550011006,
+      "buyOrders": 11,
+      "sellOrders": 9,
+      "buyVolume": 46224,
+      "sellVolume": 81568851
+    },
+    {
+      "timestamp": 1733553611006,
+      "buyOrders": 2,
+      "sellOrders": 24,
+      "buyVolume": 29998,
+      "sellVolume": 117706798
+    },
+    {
+      "timestamp": 1733557211006,
+      "buyOrders": 9,
+      "sellOrders": 28,
+      "buyVolume": 65046,
+      "sellVolume": 75902909
+    },
+    {
+      "timestamp": 1733560811006,
+      "buyOrders": 7,
+      "sellOrders": 13,
+      "buyVolume": 59562,
+      "sellVolume": 115702047
+    },
+    {
+      "timestamp": 1733564411006,
+      "buyOrders": 3,
+      "sellOrders": 7,
+      "buyVolume": 34917,
+      "sellVolume": 60653200
+    },
+    {
+      "timestamp": 1733568011006,
+      "buyOrders": 9,
+      "sellOrders": 15,
+      "buyVolume": 59484,
+      "sellVolume": 51978943
+    },
+    {
+      "timestamp": 1733571611006,
+      "buyOrders": 3,
+      "sellOrders": 10,
+      "buyVolume": 26099,
+      "sellVolume": 72424731
+    },
+    {
+      "timestamp": 1733575211006,
+      "buyOrders": 13,
+      "sellOrders": 12,
+      "buyVolume": 85026,
+      "sellVolume": 57184752
+    },
+    {
+      "timestamp": 1733578811006,
+      "buyOrders": 11,
+      "sellOrders": 18,
+      "buyVolume": 114870,
+      "sellVolume": 125539907
+    },
+    {
+      "timestamp": 1733582411006,
+      "buyOrders": 12,
+      "sellOrders": 22,
+      "buyVolume": 69863,
+      "sellVolume": 60839479
+    },
+    {
+      "timestamp": 1733586011006,
+      "buyOrders": 3,
+      "sellOrders": 10,
+      "buyVolume": 63095,
+      "sellVolume": 114921002
+    },
+    {
+      "timestamp": 1733589611006,
+      "buyOrders": 5,
+      "sellOrders": 25,
+      "buyVolume": 84316,
+      "sellVolume": 98284650
+    },
+    {
+      "timestamp": 1733593211006,
+      "buyOrders": 4,
+      "sellOrders": 27,
+      "buyVolume": 35193,
+      "sellVolume": 85159650
+    },
+    {
+      "timestamp": 1733596811006,
+      "buyOrders": 14,
+      "sellOrders": 12,
+      "buyVolume": 113323,
+      "sellVolume": 96493742
+    },
+    {
+      "timestamp": 1733600411006,
+      "buyOrders": 2,
+      "sellOrders": 25,
+      "buyVolume": 21943,
+      "sellVolume": 57335517
+    },
+    {
+      "timestamp": 1733604011006,
+      "buyOrders": 9,
+      "sellOrders": 32,
+      "buyVolume": 46360,
+      "sellVolume": 107641869
+    },
+    {
+      "timestamp": 1733607611006,
+      "buyOrders": 3,
+      "sellOrders": 17,
+      "buyVolume": 61049,
+      "sellVolume": 56046944
+    },
+    {
+      "timestamp": 1733611211006,
+      "buyOrders": 11,
+      "sellOrders": 29,
+      "buyVolume": 52288,
+      "sellVolume": 72401988
+    },
+    {
+      "timestamp": 1733614811006,
+      "buyOrders": 6,
+      "sellOrders": 14,
+      "buyVolume": 105286,
+      "sellVolume": 124393419
+    },
+    {
+      "timestamp": 1733618411006,
+      "buyOrders": 1,
+      "sellOrders": 28,
+      "buyVolume": 47999,
+      "sellVolume": 86873054
+    },
+    {
+      "timestamp": 1733622011006,
+      "buyOrders": 5,
+      "sellOrders": 18,
+      "buyVolume": 32042,
+      "sellVolume": 50619615
+    },
+    {
+      "timestamp": 1733625611006,
+      "buyOrders": 4,
+      "sellOrders": 8,
+      "buyVolume": 37359,
+      "sellVolume": 61503430
+    },
+    {
+      "timestamp": 1733629211006,
+      "buyOrders": 7,
+      "sellOrders": 11,
+      "buyVolume": 27248,
+      "sellVolume": 104690366
+    },
+    {
+      "timestamp": 1733632811006,
+      "buyOrders": 12,
+      "sellOrders": 26,
+      "buyVolume": 92357,
+      "sellVolume": 58340168
+    },
+    {
+      "timestamp": 1733636411006,
+      "buyOrders": 11,
+      "sellOrders": 11,
+      "buyVolume": 60909,
+      "sellVolume": 84217111
+    },
+    {
+      "timestamp": 1733640011006,
+      "buyOrders": 3,
+      "sellOrders": 34,
+      "buyVolume": 63258,
+      "sellVolume": 80755042
+    },
+    {
+      "timestamp": 1733643611006,
+      "buyOrders": 13,
+      "sellOrders": 26,
+      "buyVolume": 27934,
+      "sellVolume": 64978461
+    },
+    {
+      "timestamp": 1733647211006,
+      "buyOrders": 9,
+      "sellOrders": 12,
+      "buyVolume": 23016,
+      "sellVolume": 106563621
+    },
+    {
+      "timestamp": 1733650811006,
+      "buyOrders": 9,
+      "sellOrders": 26,
+      "buyVolume": 102796,
+      "sellVolume": 110798965
+    },
+    {
+      "timestamp": 1733654411006,
+      "buyOrders": 2,
+      "sellOrders": 12,
+      "buyVolume": 38969,
+      "sellVolume": 79528315
+    },
+    {
+      "timestamp": 1733658011006,
+      "buyOrders": 11,
+      "sellOrders": 8,
+      "buyVolume": 95843,
+      "sellVolume": 112517720
+    },
+    {
+      "timestamp": 1733661611006,
+      "buyOrders": 15,
+      "sellOrders": 27,
+      "buyVolume": 63861,
+      "sellVolume": 52550599
+    },
+    {
+      "timestamp": 1733665211006,
+      "buyOrders": 1,
+      "sellOrders": 20,
+      "buyVolume": 101512,
+      "sellVolume": 92219541
+    },
+    {
+      "timestamp": 1733668811006,
+      "buyOrders": 9,
+      "sellOrders": 19,
+      "buyVolume": 116662,
+      "sellVolume": 88527383
+    },
+    {
+      "timestamp": 1733672411006,
+      "buyOrders": 12,
+      "sellOrders": 23,
+      "buyVolume": 65604,
+      "sellVolume": 122753670
+    },
+    {
+      "timestamp": 1733676011006,
+      "buyOrders": 13,
+      "sellOrders": 18,
+      "buyVolume": 109003,
+      "sellVolume": 78749530
+    },
+    {
+      "timestamp": 1733679611006,
+      "buyOrders": 3,
+      "sellOrders": 24,
+      "buyVolume": 47659,
+      "sellVolume": 88507391
+    },
+    {
+      "timestamp": 1733683211006,
+      "buyOrders": 7,
+      "sellOrders": 14,
+      "buyVolume": 113750,
+      "sellVolume": 109340230
+    },
+    {
+      "timestamp": 1733686811006,
+      "buyOrders": 13,
+      "sellOrders": 6,
+      "buyVolume": 117689,
+      "sellVolume": 75686060
+    },
+    {
+      "timestamp": 1733690411006,
+      "buyOrders": 5,
+      "sellOrders": 25,
+      "buyVolume": 92830,
+      "sellVolume": 71010611
+    },
+    {
+      "timestamp": 1733694011006,
+      "buyOrders": 15,
+      "sellOrders": 10,
+      "buyVolume": 88333,
+      "sellVolume": 74442728
+    },
+    {
+      "timestamp": 1733697611006,
+      "buyOrders": 10,
+      "sellOrders": 7,
+      "buyVolume": 20136,
+      "sellVolume": 129079150
+    },
+    {
+      "timestamp": 1733701211006,
+      "buyOrders": 7,
+      "sellOrders": 9,
+      "buyVolume": 44668,
+      "sellVolume": 70710204
+    },
+    {
+      "timestamp": 1733704811006,
+      "buyOrders": 1,
+      "sellOrders": 21,
+      "buyVolume": 107117,
+      "sellVolume": 104759958
+    },
+    {
+      "timestamp": 1733708411006,
+      "buyOrders": 11,
+      "sellOrders": 34,
+      "buyVolume": 79661,
+      "sellVolume": 67382281
+    },
+    {
+      "timestamp": 1733708799104,
+      "buyOrders": 5,
+      "sellOrders": 106,
+      "buyVolume": 24055000000,
+      "sellVolume": 77158931754742
+    },
+    {
+      "timestamp": 1733709137831,
+      "buyOrders": 5,
+      "sellOrders": 106,
+      "buyVolume": 24055000000,
+      "sellVolume": 77158931754742
+    }
+  ],
+  "summary": {
+    "LOGOS": [
+      {
+        "timestamp": 1733715618024,
+        "buyOrders": 1,
+        "sellOrders": 2,
+        "buyVolume": 2008000000,
+        "sellVolume": 4961207931772
+      },
+      {
+        "timestamp": 1733715876827,
+        "buyOrders": 1,
+        "sellOrders": 2,
+        "buyVolume": 2008000000,
+        "sellVolume": 4961207931772
+      }
+    ],
+    "CHAOS": [
+      {
+        "timestamp": 1733715618024,
+        "buyOrders": 6,
+        "sellOrders": 105,
+        "buyVolume": 26064000,
+        "sellVolume": 75431560410674
+      },
+      {
+        "timestamp": 1733715876827,
+        "buyOrders": 6,
+        "sellOrders": 105,
+        "buyVolume": 26064000,
+        "sellVolume": 75431560410674
+      }
+    ]
+  }
+}
