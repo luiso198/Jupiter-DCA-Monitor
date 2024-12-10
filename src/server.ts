@@ -2,10 +2,12 @@ import express from 'express';
 import path from 'path';
 import { StorageService } from './storage';
 import { Logger } from './logger';
+import { JupiterMonitor } from './monitor';
 
 export class WebServer {
     private app: express.Application;
     private storage: StorageService;
+    private jupiterMonitor: JupiterMonitor | null = null;
     private isReady: boolean = false;
 
     constructor() {
@@ -14,6 +16,7 @@ export class WebServer {
 
         // Serve static files
         this.app.use(express.static(path.join(process.cwd(), 'public')));
+        this.app.use(express.json());
 
         // API endpoints
         this.app.get('/api/state', (req, res) => {
@@ -41,6 +44,23 @@ export class WebServer {
                 data: chartData
             });
         });
+
+        // Endpoint to start the app
+        this.app.post('/start', async (req, res) => {
+            try {
+                if (!this.jupiterMonitor) {
+                    this.jupiterMonitor = new JupiterMonitor(this);
+                    await this.jupiterMonitor.start();
+                    Logger.info('Jupiter Monitor started successfully');
+                    res.status(200).json({ message: 'App started successfully' });
+                } else {
+                    res.status(400).json({ message: 'App is already running' });
+                }
+            } catch (error) {
+                Logger.error('Error starting Jupiter Monitor:', error);
+                res.status(500).json({ message: 'Failed to start app' });
+            }
+        });
     }
 
     start(port: number = 3000) {
@@ -54,7 +74,6 @@ export class WebServer {
         if (summary.LOGOS) this.storage.updateSummary('LOGOS', summary.LOGOS);
         if (summary.CHAOS) this.storage.updateSummary('CHAOS', summary.CHAOS);
         
-        // Update chart data if provided
         if (chartData) {
             if (chartData.LOGOS) {
                 chartData.LOGOS.forEach((point: any) => 

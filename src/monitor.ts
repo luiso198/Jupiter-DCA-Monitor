@@ -145,9 +145,15 @@ export class JupiterMonitor {
     }
 
     async start() {
+        if (this.isRunning) {
+            console.log('The app is already running.');
+            return;
+        }
+
         try {
             this.isRunning = true;
-            
+            console.log('Starting the app...');
+
             // Load initial state
             const state = this.storage.getState();
             
@@ -162,11 +168,13 @@ export class JupiterMonitor {
             // Start monitoring
             await this.pollDcaPositions();
         } catch (error) {
-            throw error;
+            console.error('Error starting the monitor:', error);
+            this.isRunning = false;
         }
     }
 
     private async pollDcaPositions() {
+        console.log('Polling DCA positions...');
         let lastSummaryTime = 0;
         const SUMMARY_INTERVAL = 10000;
         let isFirstRun = true;
@@ -174,18 +182,34 @@ export class JupiterMonitor {
         while (this.isRunning) {
             try {
                 const allDcaAccounts = (await this.dca.getAll()) as ProgramDCAAccount[];
-                
-                // Add detailed logging here using Logger.info
+
+                // Log all relevant DCA positions for LOGOS and CHAOS
                 allDcaAccounts.forEach(pos => {
-                    Logger.info('Raw DCA Position:', {
-                        publicKey: pos.publicKey.toString(),
-                        inputToken: this.TOKEN_INFO[pos.account.inputMint.toString()]?.symbol || pos.account.inputMint.toString(),
-                        outputToken: this.TOKEN_INFO[pos.account.outputMint.toString()]?.symbol || pos.account.outputMint.toString(),
-                        inDeposited: pos.account.inDeposited.toString(),
-                        inWithdrawn: pos.account.inWithdrawn.toString(),
-                        inAmountPerCycle: pos.account.inAmountPerCycle.toString(),
-                        cycleFrequency: pos.account.cycleFrequency.toNumber()
-                    });
+                    const inputMint = pos.account.inputMint.toString();
+                    const outputMint = pos.account.outputMint.toString();
+
+                    // Check if the position is for LOGOS or CHAOS
+                    if (inputMint === this.LOGOS.toString() || outputMint === this.LOGOS.toString() ||
+                        inputMint === this.CHAOS.toString() || outputMint === this.CHAOS.toString()) {
+                        
+                        Logger.info('Raw DCA Position:', {
+                            publicKey: pos.publicKey.toString(),
+                            inputToken: this.TOKEN_INFO[inputMint]?.symbol || inputMint,
+                            outputToken: this.TOKEN_INFO[outputMint]?.symbol || outputMint,
+                            inDeposited: pos.account.inDeposited.toString(),
+                            inWithdrawn: pos.account.inWithdrawn.toString(),
+                            inAmountPerCycle: pos.account.inAmountPerCycle.toString(),
+                            cycleFrequency: pos.account.cycleFrequency.toNumber(),
+                            minOutAmount: pos.account.minOutAmount ? pos.account.minOutAmount.toString() : 'Not Set'
+                        });
+                    } else {
+                        // Optionally log filtered out tokens if needed
+                        console.log('Filtered out by token:', {
+                            publicKey: pos.publicKey.toString(),
+                            inputMint,
+                            outputMint
+                        });
+                    }
                 });
 
                 const activePositions = allDcaAccounts.filter(pos => {
@@ -775,20 +799,12 @@ export class JupiterMonitor {
             .filter(pos => {
                 const inputMint = pos.account.inputMint.toString();
                 const outputMint = pos.account.outputMint.toString();
-                // Log positions that get filtered out
                 const isIncluded = (
                     inputMint === this.LOGOS.toString() || 
                     outputMint === this.LOGOS.toString() ||
                     inputMint === this.CHAOS.toString() || 
                     outputMint === this.CHAOS.toString()
                 );
-                if (!isIncluded) {
-                    console.log('Filtered out position:', {
-                        publicKey: pos.publicKey.toString(),
-                        inputMint,
-                        outputMint
-                    });
-                }
                 return isIncluded;
             })
             .map(pos => {
@@ -796,29 +812,22 @@ export class JupiterMonitor {
                 const outputMint = pos.account.outputMint.toString();
                 const isLogos = inputMint === this.LOGOS.toString() || outputMint === this.LOGOS.toString();
                 
+                // Get input token decimals
+                const inputDecimals = this.TOKEN_INFO[inputMint]?.decimals || 9;
+                
+                // Format amounts using correct decimals and round to 1 decimal place for SOL
+                const formattedInputAmount = inputMint === 'So11111111111111111111111111111111111111112'
+                    ? (Number(pos.account.inDeposited.toString()) / Math.pow(10, inputDecimals)).toLocaleString(undefined, {maximumFractionDigits: 1, minimumFractionDigits: 1})
+                    : Math.round(Number(pos.account.inDeposited.toString()) / Math.pow(10, inputDecimals)).toString();
+
                 // Calculate DCA amounts
                 const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
                 const amountPerCycle = pos.account.inAmountPerCycle;
                 const totalCycles = totalAmount.div(amountPerCycle);
-                const formattedAmount = Number(totalAmount.toString()) / Math.pow(10, 6);
-                
-                // Add detailed logging
-                Logger.info('DCA Position Calculations:', {
-                    publicKey: pos.publicKey.toString(),
-                    token: isLogos ? 'LOGOS' : 'CHAOS',
-                    rawValues: {
-                        inDeposited: pos.account.inDeposited.toString(),
-                        inWithdrawn: pos.account.inWithdrawn.toString(),
-                        inAmountPerCycle: pos.account.inAmountPerCycle.toString()
-                    },
-                    calculations: {
-                        totalRemainingRaw: totalAmount.toString(),
-                        totalRemainingFormatted: formattedAmount,
-                        amountPerCycleFormatted: Number(amountPerCycle.toString()) / Math.pow(10, 6),
-                        remainingCycles: totalCycles.toNumber(),
-                        cycleFrequency: pos.account.cycleFrequency.toNumber()
-                    }
-                });
+
+                // Format total amount and amount per cycle
+                const formattedTotalAmount = Number(totalAmount.toString()) / Math.pow(10, 6);
+                const formattedAmountPerCycle = Number(amountPerCycle.toString()) / Math.pow(10, 6);
 
                 return {
                     token: isLogos ? 'LOGOS' : 'CHAOS',
@@ -827,14 +836,14 @@ export class JupiterMonitor {
                     programId: 'DCAmK5w3m3yVnY8xdAhFYbFEHsocrfyxmXXYHEUqhxX6',
                     inputToken: this.TOKEN_INFO[inputMint]?.symbol || inputMint,
                     outputToken: this.TOKEN_INFO[outputMint]?.symbol || outputMint,
-                    totalAmount: formattedAmount.toString(),
-                    amountPerCycle: Number(amountPerCycle.toString()) / Math.pow(10, 6),
+                    totalAmount: formattedTotalAmount.toString(),
+                    amountPerCycle: formattedAmountPerCycle.toString(),
                     remainingCycles: totalCycles.toNumber(),
                     cycleFrequency: pos.account.cycleFrequency.toNumber(),
+                    inputAmount: formattedInputAmount,
                     lastUpdate: Date.now(),
                     solscanUrl: `https://solscan.io/tx/${pos.publicKey.toString()}`
                 };
             });
     }
 }
- ` `

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jupiter DCA Monitor</title>
     <style>
         /* Base styles */
@@ -38,7 +40,7 @@
             border-left: 4px solid #4CAF50;
         }
 
-        .status-banner .controls {
+        .controls {
             display: flex;
             gap: 15px;
             align-items: center;
@@ -142,10 +144,11 @@
         <div id="status-banner" class="status-banner cached">
             <div class="status-text">Loading...</div>
             <div class="controls">
+                <button id="start-button" class="button">Start App</button>
                 <button id="refresh-button" class="button">Refresh Now</button>
                 <div class="toggle-switch">
                     <label for="auto-refresh">Auto-refresh</label>
-                    <input type="checkbox" id="auto-refresh">
+                    <input type="checkbox" id="auto-refresh" checked>
                 </div>
             </div>
         </div>
@@ -349,7 +352,7 @@
                         </span>
                     </div>
                     <div style="margin-top: 10px;">
-                        <div>Input: ${position.inputToken}</div>
+                        <div>Input: ${position.inputToken} (${position.inputAmount})</div>
                         <div>Output: ${position.outputToken}</div>
                         <div>Total Amount: ${Number(position.totalAmount).toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
                         <div>Amount Per Cycle: ${Number(position.amountPerCycle).toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
@@ -416,6 +419,31 @@
             // Initialize charts
             initializeChart('LOGOS');
             initializeChart('CHAOS');
+
+            // Set up start button
+            document.getElementById('start-button').addEventListener('click', async () => {
+                console.log('Start button clicked'); // Debug log
+                try {
+                    const response = await fetch('/start', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log('App started:', result.message);
+                        // Start fetching data after the app has started
+                        fetchData(true);
+                    } else {
+                        const error = await response.json();
+                        console.error('Failed to start app:', error.message);
+                    }
+                } catch (error) {
+                    console.error('Error starting app:', error);
+                }
+            });
 
             // Set up refresh button
             document.getElementById('refresh-button').addEventListener('click', () => {
