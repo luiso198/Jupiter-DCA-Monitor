@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+}
+
+.status-banner {
+  @apply bg-[#1a1a1a] p-4 mb-5 rounded-lg flex justify-between items-center;
+}
+
+.status-banner.cached {
+  @apply border-l-4 border-yellow-400;
+}
+
+.status-banner.live {
+  @apply border-l-4 border-green-500;
+}
+
+.token-section {
+  @apply bg-[#1a1a1a] rounded-lg p-5;
+}
+
+.stat-item {
+  @apply bg-[#2a2a2a] p-4 rounded-lg text-center;
+}
+
+.position-card {
+  @apply bg-[#2a2a2a] rounded-lg p-4 mb-4 border-l-4;
+}
+
+.position-card.buy {
+  @apply border-green-500;
+}
+
+.position-card.sell {
+  @apply border-red-500;
+}
+
+.chart-container {
+  @apply bg-[#2a2a2a] rounded-lg p-4 mt-5 h-[300px];
+}
+
+.button {
+  @apply bg-[#3a3a3a] text-white px-4 py-2 rounded hover:bg-[#4a4a4a] transition-colors;
+} 
