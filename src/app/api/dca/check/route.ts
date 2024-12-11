@@ -11,13 +11,13 @@ export const dynamic = 'force-dynamic';
 const LOGOS = new PublicKey('HJUfqXoYjC653f2p33i84zdCC3jc4EuVnbruSe5kpump');
 const CHAOS = new PublicKey('8SgNwESovnbG1oNEaPVhg6CR9mTMSK7jPvcYRe3wpump');
 
-// Initialize connection with longer timeout
+// Initialize connection with shorter timeout
 const connection = new Connection(
     process.env.NEXT_PUBLIC_RPC_ENDPOINT || 'https://api.mainnet-beta.solana.com',
     {
         commitment: 'confirmed',
         disableRetryOnRateLimit: false,
-        confirmTransactionInitialTimeout: 30000
+        confirmTransactionInitialTimeout: 10000 // 10 seconds
     }
 );
 
@@ -27,6 +27,14 @@ const dca = new DCA(connection);
 let cachedData: any = null;
 let lastFetch = 0;
 const CACHE_DURATION = 30000; // 30 seconds
+
+// Helper function to wrap promises with timeout
+async function withTimeout<T>(promise: Promise<T>, timeoutMs: number, errorMessage: string): Promise<T> {
+    const timeoutPromise = new Promise<T>((_, reject) => {
+        setTimeout(() => reject(new Error(errorMessage)), timeoutMs);
+    });
+    return Promise.race([promise, timeoutPromise]);
+}
 
 export async function GET() {
     console.error('DEPLOYMENT DEBUG - Starting DCA check');
@@ -44,75 +52,78 @@ export async function GET() {
             });
         }
 
-        // Test connection first
+        // Quick connection test
         console.error('DEPLOYMENT DEBUG - Testing connection');
-        const connectionTest = await Promise.race([
+        await withTimeout(
             connection.getLatestBlockhash(),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('Connection timeout')), 10000))
-        ]);
-
-        console.error('DEPLOYMENT DEBUG - Connection successful, fetching accounts');
-        
-        // Fetch accounts with timeout
-        const accountsPromise = dca.getAll();
-        const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('DCA accounts fetch timeout')), 20000)
+            5000, // 5 seconds
+            'Connection test timeout'
         );
-        
-        const accounts = await Promise.race([accountsPromise, timeoutPromise]) as ProgramDCAAccount[];
-        
-        // Process accounts
-        const positions = accounts.filter((pos: ProgramDCAAccount) => {
-            if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) return false;
-            const inputMint = pos.account.inputMint.toString();
-            const outputMint = pos.account.outputMint.toString();
-            return (
-                inputMint === LOGOS.toString() || 
-                outputMint === LOGOS.toString() ||
-                inputMint === CHAOS.toString() || 
-                outputMint === CHAOS.toString()
-            );
-        });
 
-        // Format data
-        const formattedData = {
-            summary: {
-                LOGOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 },
-                CHAOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 }
-            },
-            positions: positions.map((pos: ProgramDCAAccount) => {
+        // Fetch accounts with very short timeout
+        console.error('DEPLOYMENT DEBUG - Fetching accounts');
+        const accounts = await withTimeout(
+            dca.getAll(),
+            15000, // 15 seconds
+            'DCA accounts fetch timeout'
+        ) as ProgramDCAAccount[];
+
+        // Process accounts with timeout
+        console.error('DEPLOYMENT DEBUG - Processing accounts');
+        const formattedData = await withTimeout(Promise.resolve().then(() => {
+            const positions = accounts.filter((pos: ProgramDCAAccount) => {
+                if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) return false;
                 const inputMint = pos.account.inputMint.toString();
                 const outputMint = pos.account.outputMint.toString();
-                const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
-                const volume = Number(totalAmount.toString()) / Math.pow(10, 6);
+                return (
+                    inputMint === LOGOS.toString() || 
+                    outputMint === LOGOS.toString() ||
+                    inputMint === CHAOS.toString() || 
+                    outputMint === CHAOS.toString()
+                );
+            });
 
-                const token = inputMint === LOGOS.toString() || outputMint === LOGOS.toString() ? 'LOGOS' : 'CHAOS';
-                const type = outputMint === (token === 'LOGOS' ? LOGOS : CHAOS).toString() ? 'BUY' : 'SELL';
+            const result = {
+                summary: {
+                    LOGOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 },
+                    CHAOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 }
+                },
+                positions: positions.map((pos: ProgramDCAAccount) => {
+                    const inputMint = pos.account.inputMint.toString();
+                    const outputMint = pos.account.outputMint.toString();
+                    const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
+                    const volume = Number(totalAmount.toString()) / Math.pow(10, 6);
 
-                // Update summary
-                const summary = formattedData.summary[token];
-                if (type === 'BUY') {
-                    summary.buyOrders++;
-                    summary.buyVolume += volume;
-                } else {
-                    summary.sellOrders++;
-                    summary.sellVolume += volume;
-                }
+                    const token = inputMint === LOGOS.toString() || outputMint === LOGOS.toString() ? 'LOGOS' : 'CHAOS';
+                    const type = outputMint === (token === 'LOGOS' ? LOGOS : CHAOS).toString() ? 'BUY' : 'SELL';
 
-                return {
-                    type,
-                    token,
-                    inputToken: inputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
-                    outputToken: outputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
-                    volume,
-                    amountPerCycle: Number(pos.account.inAmountPerCycle.toString()) / Math.pow(10, 6),
-                    remainingCycles: Math.floor(Number(totalAmount.toString()) / Number(pos.account.inAmountPerCycle.toString())),
-                    cycleFrequency: pos.account.cycleFrequency.toNumber(),
-                    publicKey: pos.publicKey.toString()
-                };
-            }),
-            lastUpdate: Date.now()
-        };
+                    // Update summary
+                    const summary = result.summary[token];
+                    if (type === 'BUY') {
+                        summary.buyOrders++;
+                        summary.buyVolume += volume;
+                    } else {
+                        summary.sellOrders++;
+                        summary.sellVolume += volume;
+                    }
+
+                    return {
+                        type,
+                        token,
+                        inputToken: inputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
+                        outputToken: outputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
+                        volume,
+                        amountPerCycle: Number(pos.account.inAmountPerCycle.toString()) / Math.pow(10, 6),
+                        remainingCycles: Math.floor(Number(totalAmount.toString()) / Number(pos.account.inAmountPerCycle.toString())),
+                        cycleFrequency: pos.account.cycleFrequency.toNumber(),
+                        publicKey: pos.publicKey.toString()
+                    };
+                }),
+                lastUpdate: Date.now()
+            });
+
+            return result;
+        }), 5000, 'Data processing timeout'); // 5 seconds for processing
 
         // Update cache
         cachedData = formattedData;
