@@ -1,16 +1,18 @@
-# Jupiter DCA Dashboard
+# Jupiter DCA Monitor
 
-A real-time monitoring dashboard for Jupiter DCA (Dollar Cost Averaging) positions on Solana, with special focus on LOGOS and CHAOS tokens.
+Real-time monitoring dashboard for Jupiter DCA positions on LOGOS and CHAOS tokens.
 
 ## Features
-
-- Real-time monitoring of DCA positions
-- Auto-updating ticker display of token statistics
-- Detailed tracking of LOGOS and CHAOS positions
-- Filter positions by Buy/Sell orders
-- Clickable Solscan links for position verification
-- Telegram notifications for position changes
+- Real-time DCA position tracking
+- Volume and order statistics
+- Telegram notifications
+- Chart visualization
+- Individual position details
 
 ## Setup
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Create `.env.local` with required environment variables
+4. Run development server: `npm run dev`
 
-1. Clone the repository: 
+## Environment Variables
