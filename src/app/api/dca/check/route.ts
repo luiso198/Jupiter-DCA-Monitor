@@ -10,70 +10,61 @@ export const dynamic = 'force-dynamic';
 const LOGOS = new PublicKey('HJUfqXoYjC653f2p33i84zdCC3jc4EuVnbruSe5kpump');
 const CHAOS = new PublicKey('8SgNwESovnbG1oNEaPVhg6CR9mTMSK7jPvcYRe3wpump');
 
+// Initialize connection with longer timeout
+const connection = new Connection(
+    process.env.NEXT_PUBLIC_RPC_ENDPOINT || 'https://api.mainnet-beta.solana.com',
+    {
+        commitment: 'confirmed',
+        disableRetryOnRateLimit: false,
+        confirmTransactionInitialTimeout: 30000
+    }
+);
+
+const dca = new DCA(connection);
+
+// Cache mechanism
+let cachedData: any = null;
+let lastFetch = 0;
+const CACHE_DURATION = 30000; // 30 seconds
+
 export async function GET() {
-    console.error('DEPLOYMENT TEST - Starting DCA check with commit comments enabled');
+    console.error('DEPLOYMENT DEBUG - Starting DCA check');
     
     try {
-        // Log environment variables (safely)
-        const envVars: Record<string, string> = {};
-        Object.keys(process.env).forEach(key => {
-            const value = process.env[key];
-            if (value) {
-                envVars[key] = key.includes('KEY') || key.includes('SECRET') || key.includes('TOKEN') 
-                    ? '[REDACTED]' 
-                    : value;
-            }
-        });
-        
-        console.error('DEPLOYMENT DEBUG - Environment:', {
-            hasRpcEndpoint: !!process.env.NEXT_PUBLIC_RPC_ENDPOINT,
-            nodeEnv: process.env.NODE_ENV,
-            vercelEnv: process.env.VERCEL_ENV,
-            allVars: envVars
-        });
-
-        // Validate RPC endpoint
-        if (!process.env.NEXT_PUBLIC_RPC_ENDPOINT) {
-            console.error('DEPLOYMENT DEBUG - Error: RPC endpoint not configured');
-            throw new Error('RPC endpoint not configured');
+        // Check cache first
+        const now = Date.now();
+        if (cachedData && (now - lastFetch) < CACHE_DURATION) {
+            console.error('DEPLOYMENT DEBUG - Returning cached data');
+            return NextResponse.json({ 
+                success: true, 
+                data: cachedData,
+                cached: true,
+                lastFetch
+            });
         }
 
-        // Initialize connection with more logging
-        console.error('DEPLOYMENT DEBUG - Initializing Solana connection...');
-        const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT);
+        // Test connection first
+        console.error('DEPLOYMENT DEBUG - Testing connection');
+        const connectionTest = await Promise.race([
+            connection.getLatestBlockhash(),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('Connection timeout')), 10000))
+        ]);
+
+        console.error('DEPLOYMENT DEBUG - Connection successful, fetching accounts');
         
-        // Test connection
-        console.error('DEPLOYMENT DEBUG - Testing Solana connection...');
-        try {
-            const blockHash = await connection.getLatestBlockhash();
-            console.error('DEPLOYMENT DEBUG - Successfully connected to Solana:', {
-                blockHash: blockHash.blockhash.substring(0, 10) + '...',
-                lastValidBlockHeight: blockHash.lastValidBlockHeight
-            });
-        } catch (error: any) {
-            console.error('DEPLOYMENT DEBUG - Failed to connect to Solana:', {
-                message: error?.message || 'Unknown error',
-                code: error?.code,
-                stack: error?.stack
-            });
-            throw new Error(`Failed to connect to Solana network: ${error?.message || 'Unknown error'}`);
-        }
+        // Fetch accounts with timeout
+        const accountsPromise = dca.getAll();
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('DCA accounts fetch timeout')), 20000)
+        );
         
-        const dca = new DCA(connection);
+        const accounts = await Promise.race([accountsPromise, timeoutPromise]);
         
-        // Fetch accounts
-        const accounts = await dca.getAll();
-        console.log(`Found ${accounts.length} DCA accounts`);
-        
-        // Filter relevant positions
+        // Process accounts
         const positions = accounts.filter(pos => {
-            if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) {
-                return false;
-            }
-            
+            if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) return false;
             const inputMint = pos.account.inputMint.toString();
             const outputMint = pos.account.outputMint.toString();
-            
             return (
                 inputMint === LOGOS.toString() || 
                 outputMint === LOGOS.toString() ||
@@ -82,76 +73,88 @@ export async function GET() {
             );
         });
 
-        // Format positions for UI
-        const formattedPositions = positions.map(pos => {
-            const inputMint = pos.account.inputMint.toString();
-            const outputMint = pos.account.outputMint.toString();
-            const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
-            const volume = Number(totalAmount.toString()) / Math.pow(10, 6);
+        // Format data
+        const formattedData = {
+            summary: {
+                LOGOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 },
+                CHAOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 }
+            },
+            positions: positions.map(pos => {
+                const inputMint = pos.account.inputMint.toString();
+                const outputMint = pos.account.outputMint.toString();
+                const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
+                const volume = Number(totalAmount.toString()) / Math.pow(10, 6);
 
-            // Determine token and type
-            const token = inputMint === LOGOS.toString() || outputMint === LOGOS.toString() ? 'LOGOS' : 'CHAOS';
-            const type = outputMint === (token === 'LOGOS' ? LOGOS : CHAOS).toString() ? 'BUY' : 'SELL';
+                const token = inputMint === LOGOS.toString() || outputMint === LOGOS.toString() ? 'LOGOS' : 'CHAOS';
+                const type = outputMint === (token === 'LOGOS' ? LOGOS : CHAOS).toString() ? 'BUY' : 'SELL';
 
-            return {
-                type,
-                token,
-                inputToken: inputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
-                outputToken: outputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
-                volume,
-                amountPerCycle: Number(pos.account.inAmountPerCycle.toString()) / Math.pow(10, 6),
-                remainingCycles: Math.floor(Number(totalAmount.toString()) / Number(pos.account.inAmountPerCycle.toString())),
-                cycleFrequency: pos.account.cycleFrequency.toNumber(),
-                publicKey: pos.publicKey.toString()
-            };
-        });
-
-        // Calculate summary
-        const summary = formattedPositions.reduce((acc, pos) => {
-            if (pos.token === 'LOGOS') {
-                if (pos.type === 'BUY') {
-                    acc.LOGOS.buyOrders++;
-                    acc.LOGOS.buyVolume += pos.volume;
+                // Update summary
+                const summary = formattedData.summary[token];
+                if (type === 'BUY') {
+                    summary.buyOrders++;
+                    summary.buyVolume += volume;
                 } else {
-                    acc.LOGOS.sellOrders++;
-                    acc.LOGOS.sellVolume += pos.volume;
+                    summary.sellOrders++;
+                    summary.sellVolume += volume;
                 }
-            } else {
-                if (pos.type === 'BUY') {
-                    acc.CHAOS.buyOrders++;
-                    acc.CHAOS.buyVolume += pos.volume;
-                } else {
-                    acc.CHAOS.sellOrders++;
-                    acc.CHAOS.sellVolume += pos.volume;
-                }
-            }
-            return acc;
-        }, {
-            LOGOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 },
-            CHAOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 }
+
+                return {
+                    type,
+                    token,
+                    inputToken: inputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
+                    outputToken: outputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
+                    volume,
+                    amountPerCycle: Number(pos.account.inAmountPerCycle.toString()) / Math.pow(10, 6),
+                    remainingCycles: Math.floor(Number(totalAmount.toString()) / Number(pos.account.inAmountPerCycle.toString())),
+                    cycleFrequency: pos.account.cycleFrequency.toNumber(),
+                    publicKey: pos.publicKey.toString()
+                };
+            }),
+            lastUpdate: Date.now()
+        };
+
+        // Update cache
+        cachedData = formattedData;
+        lastFetch = now;
+
+        console.error('DEPLOYMENT DEBUG - Successfully processed data:', {
+            positionCount: formattedData.positions.length,
+            logosStats: formattedData.summary.LOGOS,
+            chaosStats: formattedData.summary.CHAOS
         });
 
         return NextResponse.json({ 
             success: true, 
-            data: {
-                summary,
-                positions: formattedPositions,
-                lastUpdate: Date.now()
-            }
+            data: formattedData,
+            cached: false
         });
     } catch (error: any) {
-        console.error('Error:', {
+        console.error('DEPLOYMENT DEBUG - Error processing request:', {
             message: error?.message,
             name: error?.name,
-            code: error?.code
+            code: error?.code,
+            stack: error?.stack
         });
-        
+
+        // If we have cached data and hit an error, return cached data
+        if (cachedData) {
+            console.error('DEPLOYMENT DEBUG - Returning cached data after error');
+            return NextResponse.json({ 
+                success: true, 
+                data: cachedData,
+                cached: true,
+                lastFetch,
+                error: error?.message
+            });
+        }
+
         return NextResponse.json(
             { 
                 success: false, 
-                error: error?.message || 'Unknown error'
+                error: error?.message || 'Unknown error',
+                timestamp: Date.now()
             },
-            { status: 500 }
+            { status: error?.message?.includes('timeout') ? 504 : 500 }
         );
     }
 } 
