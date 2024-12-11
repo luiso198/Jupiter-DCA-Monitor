@@ -11,10 +11,6 @@ const CHAOS = new PublicKey('8SgNwESovnbG1oNEaPVhg6CR9mTMSK7jPvcYRe3wpump');
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 second
 
-// Add a timestamp to track last message
-let lastMessageTime = 0;
-const MESSAGE_INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
-
 export async function GET() {
     let retries = MAX_RETRIES;
     
@@ -59,15 +55,11 @@ export async function GET() {
             const summary = await generateDcaSummary(activePositions);
             console.log('Generated summary:', summary);
 
-            // Send Telegram message if enough time has passed
-            const now = Date.now();
-            if (now - lastMessageTime >= MESSAGE_INTERVAL) {
-                try {
-                    await sendTelegramMessage(summary.message);
-                    lastMessageTime = now;
-                } catch (error) {
-                    console.error('Error sending Telegram message:', error);
-                }
+            // Send Telegram message
+            try {
+                await sendTelegramMessage(summary.message);
+            } catch (error) {
+                console.error('Error sending Telegram message:', error);
             }
 
             return NextResponse.json({ success: true, data: summary });
