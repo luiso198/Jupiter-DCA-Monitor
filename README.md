@@ -5,7 +5,6 @@ Real-time monitoring dashboard for Jupiter DCA positions on LOGOS and CHAOS toke
 ## Features
 - Real-time DCA position tracking
 - Volume and order statistics
-- Telegram notifications
 - Chart visualization
 - Individual position details
 
@@ -16,3 +15,4 @@ Real-time monitoring dashboard for Jupiter DCA positions on LOGOS and CHAOS toke
 4. Run development server: `npm run dev`
 
 ## Environment Variables
+- `NEXT_PUBLIC_RPC_ENDPOINT`: Your Helius RPC endpoint
