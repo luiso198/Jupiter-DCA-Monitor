@@ -86,38 +86,6 @@ async function generateDcaSummary(positions: ProgramDCAAccount[]) {
         CHAOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 }
     };
 
-    // Format positions for UI
-    const formattedPositions = positions.map(pos => {
-        const inputMint = pos.account.inputMint.toString();
-        const outputMint = pos.account.outputMint.toString();
-        
-        // Determine if this is a LOGOS or CHAOS position
-        const token = inputMint === LOGOS.toString() || outputMint === LOGOS.toString() 
-            ? 'LOGOS' 
-            : 'CHAOS';
-        
-        // Determine if buying or selling
-        const type = outputMint === (token === 'LOGOS' ? LOGOS : CHAOS).toString() ? 'BUY' : 'SELL';
-        
-        // Format amounts
-        const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
-        const volume = Number(totalAmount.toString()) / Math.pow(10, 6);
-
-        return {
-            type,
-            token,
-            inputToken: inputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
-            outputToken: outputMint === 'So11111111111111111111111111111111111111112' ? 'SOL' : token,
-            inputAmount: (Number(pos.account.inDeposited.toString()) / Math.pow(10, 6)).toString(),
-            totalAmount: volume.toString(),
-            amountPerCycle: (Number(pos.account.inAmountPerCycle.toString()) / Math.pow(10, 6)).toString(),
-            remainingCycles: Math.floor(Number(totalAmount.toString()) / Number(pos.account.inAmountPerCycle.toString())),
-            cycleFrequency: pos.account.cycleFrequency.toNumber(),
-            publicKey: pos.publicKey.toString(),
-            lastUpdate: Date.now()
-        };
-    });
-
     // Calculate summary
     for (const pos of positions) {
         const inputMint = pos.account.inputMint.toString();
@@ -152,22 +120,23 @@ async function generateDcaSummary(positions: ProgramDCAAccount[]) {
     }
 
     const message = [
-        'Jupiter DCA Summary:\n',
-        'LOGOS:',
-        `🟢 Buy Orders: ${summary.LOGOS.buyOrders}`,
-        `🔴 Sell Orders: ${summary.LOGOS.sellOrders}`,
-        `💰 Buy Volume: ${summary.LOGOS.buyVolume.toLocaleString()}`,
-        `💰 Sell Volume: ${summary.LOGOS.sellVolume.toLocaleString()}\n`,
-        'CHAOS:',
-        `🟢 Buy Orders: ${summary.CHAOS.buyOrders}`,
-        `🔴 Sell Orders: ${summary.CHAOS.sellOrders}`,
-        `💰 Buy Volume: ${summary.CHAOS.buyVolume.toLocaleString()}`,
-        `💰 Sell Volume: ${summary.CHAOS.sellVolume.toLocaleString()}`
+        '🤖 Jupiter DCA Summary\n',
+        '🔵 LOGOS',
+        `Buy: ${summary.LOGOS.buyOrders} orders (${summary.LOGOS.buyVolume.toLocaleString()})`,
+        `Sell: ${summary.LOGOS.sellOrders} orders (${summary.LOGOS.sellVolume.toLocaleString()})\n`,
+        '🟣 CHAOS',
+        `Buy: ${summary.CHAOS.buyOrders} orders (${summary.CHAOS.buyVolume.toLocaleString()})`,
+        `Sell: ${summary.CHAOS.sellOrders} orders (${summary.CHAOS.sellVolume.toLocaleString()})`
     ].join('\n');
 
     return { 
-        summary, 
+        summary,
         message,
-        positions: formattedPositions 
+        positions: positions.map(pos => ({
+            type: pos.account.outputMint.toString() === LOGOS.toString() || pos.account.outputMint.toString() === CHAOS.toString() ? 'BUY' : 'SELL',
+            token: pos.account.inputMint.toString() === LOGOS.toString() || pos.account.outputMint.toString() === LOGOS.toString() ? 'LOGOS' : 'CHAOS',
+            volume: Number(pos.account.inDeposited.sub(pos.account.inWithdrawn).toString()) / Math.pow(10, 6),
+            publicKey: pos.publicKey.toString()
+        }))
     };
 } 
