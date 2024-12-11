@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { DCA } from '@jup-ag/dca-sdk';
+import { ProgramDCAAccount } from '@/lib/types';
 
 // Add runtime configuration
 export const runtime = 'nodejs';
@@ -58,10 +59,10 @@ export async function GET() {
             setTimeout(() => reject(new Error('DCA accounts fetch timeout')), 20000)
         );
         
-        const accounts = await Promise.race([accountsPromise, timeoutPromise]);
+        const accounts = await Promise.race([accountsPromise, timeoutPromise]) as ProgramDCAAccount[];
         
         // Process accounts
-        const positions = accounts.filter(pos => {
+        const positions = accounts.filter((pos: ProgramDCAAccount) => {
             if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) return false;
             const inputMint = pos.account.inputMint.toString();
             const outputMint = pos.account.outputMint.toString();
@@ -79,7 +80,7 @@ export async function GET() {
                 LOGOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 },
                 CHAOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 }
             },
-            positions: positions.map(pos => {
+            positions: positions.map((pos: ProgramDCAAccount) => {
                 const inputMint = pos.account.inputMint.toString();
                 const outputMint = pos.account.outputMint.toString();
                 const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
