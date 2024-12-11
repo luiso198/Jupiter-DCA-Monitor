@@ -11,6 +11,8 @@ const LOGOS = new PublicKey('HJUfqXoYjC653f2p33i84zdCC3jc4EuVnbruSe5kpump');
 const CHAOS = new PublicKey('8SgNwESovnbG1oNEaPVhg6CR9mTMSK7jPvcYRe3wpump');
 
 export async function GET() {
+    console.error('DEPLOYMENT TEST - Starting DCA check with commit comments enabled');
+    
     try {
         // Log environment variables (safely)
         const envVars: Record<string, string> = {};
