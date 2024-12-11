@@ -5,8 +5,8 @@ import { getDcaOrders } from '@/lib/jupiter';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-// Set a longer timeout for the API route
-export const maxDuration = 300; // 5 minutes
+// Set timeout to maximum allowed for Hobby plan
+export const maxDuration = 60; // Maximum allowed for Hobby plan
 
 export async function GET() {
   try {
