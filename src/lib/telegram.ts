@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-export async function sendTelegramMessage(message: string): Promise<boolean> {
+// Define the function type
+type TelegramMessageFunction = (message: string) => Promise<boolean>;
+
+// Export the function with explicit type
+export const sendTelegramMessage: TelegramMessageFunction = async (message) => {
     try {
         if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
             console.error('Telegram credentials not configured');
@@ -21,4 +25,4 @@ export async function sendTelegramMessage(message: string): Promise<boolean> {
         console.error('Telegram API Error:', error?.response?.data || error?.message || error);
         return false;
     }
-}
+};
