@@ -12,28 +12,49 @@ const CHAOS = new PublicKey('8SgNwESovnbG1oNEaPVhg6CR9mTMSK7jPvcYRe3wpump');
 
 export async function GET() {
     try {
-        // Log environment setup
-        console.log('Environment check:', {
+        // Log environment variables (safely)
+        const envVars: Record<string, string> = {};
+        Object.keys(process.env).forEach(key => {
+            const value = process.env[key];
+            if (value) {
+                envVars[key] = key.includes('KEY') || key.includes('SECRET') || key.includes('TOKEN') 
+                    ? '[REDACTED]' 
+                    : value;
+            }
+        });
+        
+        console.error('DEPLOYMENT DEBUG - Environment:', {
             hasRpcEndpoint: !!process.env.NEXT_PUBLIC_RPC_ENDPOINT,
-            rpcEndpoint: process.env.NEXT_PUBLIC_RPC_ENDPOINT ? process.env.NEXT_PUBLIC_RPC_ENDPOINT.substring(0, 20) + '...' : 'not set',
-            nodeEnv: process.env.NODE_ENV
+            nodeEnv: process.env.NODE_ENV,
+            vercelEnv: process.env.VERCEL_ENV,
+            allVars: envVars
         });
 
         // Validate RPC endpoint
         if (!process.env.NEXT_PUBLIC_RPC_ENDPOINT) {
+            console.error('DEPLOYMENT DEBUG - Error: RPC endpoint not configured');
             throw new Error('RPC endpoint not configured');
         }
 
-        // Initialize connection
+        // Initialize connection with more logging
+        console.error('DEPLOYMENT DEBUG - Initializing Solana connection...');
         const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT);
         
         // Test connection
+        console.error('DEPLOYMENT DEBUG - Testing Solana connection...');
         try {
-            await connection.getLatestBlockhash();
-            console.log('Successfully connected to Solana network');
-        } catch (connError) {
-            console.error('Failed to connect to Solana:', connError);
-            throw new Error('Failed to connect to Solana network');
+            const blockHash = await connection.getLatestBlockhash();
+            console.error('DEPLOYMENT DEBUG - Successfully connected to Solana:', {
+                blockHash: blockHash.blockhash.substring(0, 10) + '...',
+                lastValidBlockHeight: blockHash.lastValidBlockHeight
+            });
+        } catch (error: any) {
+            console.error('DEPLOYMENT DEBUG - Failed to connect to Solana:', {
+                message: error?.message || 'Unknown error',
+                code: error?.code,
+                stack: error?.stack
+            });
+            throw new Error(`Failed to connect to Solana network: ${error?.message || 'Unknown error'}`);
         }
         
         const dca = new DCA(connection);
