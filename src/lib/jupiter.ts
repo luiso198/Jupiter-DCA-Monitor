@@ -9,13 +9,12 @@ const config: ConnectionConfig = {
   }
 };
 
-// Create connection with timeout
+// Create connection with longer timeout
 const connection = new Connection(
   process.env.NEXT_PUBLIC_RPC_ENDPOINT || 'https://api.mainnet-beta.solana.com',
   {
     ...config,
-    confirmTransactionInitialTimeout: 60000, // 60 seconds
-    timeout: 60000
+    confirmTransactionInitialTimeout: 60000 // 60 seconds
   }
 );
 
