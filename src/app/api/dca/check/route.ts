@@ -12,6 +12,13 @@ const CHAOS = new PublicKey('8SgNwESovnbG1oNEaPVhg6CR9mTMSK7jPvcYRe3wpump');
 
 export async function GET() {
     try {
+        // Log environment setup
+        console.log('Environment check:', {
+            hasRpcEndpoint: !!process.env.NEXT_PUBLIC_RPC_ENDPOINT,
+            rpcEndpoint: process.env.NEXT_PUBLIC_RPC_ENDPOINT ? process.env.NEXT_PUBLIC_RPC_ENDPOINT.substring(0, 20) + '...' : 'not set',
+            nodeEnv: process.env.NODE_ENV
+        });
+
         // Validate RPC endpoint
         if (!process.env.NEXT_PUBLIC_RPC_ENDPOINT) {
             throw new Error('RPC endpoint not configured');
@@ -19,10 +26,21 @@ export async function GET() {
 
         // Initialize connection
         const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT);
+        
+        // Test connection
+        try {
+            await connection.getLatestBlockhash();
+            console.log('Successfully connected to Solana network');
+        } catch (connError) {
+            console.error('Failed to connect to Solana:', connError);
+            throw new Error('Failed to connect to Solana network');
+        }
+        
         const dca = new DCA(connection);
         
         // Fetch accounts
         const accounts = await dca.getAll();
+        console.log(`Found ${accounts.length} DCA accounts`);
         
         // Filter relevant positions
         const positions = accounts.filter(pos => {
