@@ -16,8 +16,16 @@ export async function GET() {
     
     while (retries > 0) {
         try {
+            // Validate environment variables
+            if (!process.env.NEXT_PUBLIC_RPC_ENDPOINT) {
+                throw new Error('RPC endpoint not configured');
+            }
+            if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
+                throw new Error('Telegram credentials not configured');
+            }
+
             console.log('Fetching DCA orders with RPC:', process.env.NEXT_PUBLIC_RPC_ENDPOINT);
-            const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT!);
+            const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT);
             const dca = new DCA(connection);
             
             const allDcaAccounts = await dca.getAll() as ProgramDCAAccount[];
@@ -31,23 +39,12 @@ export async function GET() {
                 const inputMint = pos.account.inputMint.toString();
                 const outputMint = pos.account.outputMint.toString();
                 
-                const isRelevant = (
+                return (
                     inputMint === LOGOS.toString() || 
                     outputMint === LOGOS.toString() ||
                     inputMint === CHAOS.toString() || 
                     outputMint === CHAOS.toString()
                 );
-
-                if (isRelevant) {
-                    console.log('Found relevant position:', {
-                        inputMint,
-                        outputMint,
-                        deposited: pos.account.inDeposited.toString(),
-                        withdrawn: pos.account.inWithdrawn.toString()
-                    });
-                }
-
-                return isRelevant;
             });
             
             console.log(`Found ${activePositions.length} active LOGOS/CHAOS positions`);
@@ -56,15 +53,14 @@ export async function GET() {
             console.log('Generated summary:', summary);
 
             // Send Telegram message
-            try {
-                await sendTelegramMessage(summary.message);
-            } catch (error) {
-                console.error('Error sending Telegram message:', error);
+            const messageSent = await sendTelegramMessage(summary.message);
+            if (!messageSent) {
+                console.error('Failed to send Telegram message');
             }
 
             return NextResponse.json({ success: true, data: summary });
-        } catch (error) {
-            console.error(`Error checking DCA orders (${retries} retries left):`, error);
+        } catch (error: any) {
+            console.error(`Error checking DCA orders (${retries} retries left):`, error?.message || error);
             retries--;
             
             if (retries > 0) {
@@ -73,7 +69,7 @@ export async function GET() {
             }
             
             return NextResponse.json(
-                { success: false, error: 'Failed to check DCA orders' },
+                { success: false, error: error?.message || 'Failed to check DCA orders' },
                 { status: 500 }
             );
         }
