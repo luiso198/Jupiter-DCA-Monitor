@@ -14,23 +14,11 @@ class TelegramError extends Error {
     }
 }
 
-const TELEGRAM_BASE_URL = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}`;
-const MIN_INTERVAL = 1000; // 1 second minimum between messages
-
-let lastMessageTime = 0;
+// Track sent messages to prevent duplicates
 const sentMessages = new Set<string>();
-const MESSAGE_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
-
-// Clean up old messages
-const cleanupOldMessages = () => {
-    const now = Date.now();
-    Array.from(sentMessages).forEach(entry => {
-        const [, timestamp] = entry.split('|');
-        if (now - parseInt(timestamp) > MESSAGE_EXPIRY) {
-            sentMessages.delete(entry);
-        }
-    });
-};
+const MESSAGE_EXPIRY = 5 * 60 * 1000; // 5 minutes
+let lastMessageTime = 0;
+const MIN_INTERVAL = 1000; // 1 second
 
 export async function sendTelegramMessage(message: string): Promise<boolean> {
     try {
@@ -42,24 +30,19 @@ export async function sendTelegramMessage(message: string): Promise<boolean> {
         const now = Date.now();
         const messageKey = `${message}|${now}`;
 
-        // Check for recent duplicate messages (within 5 minutes)
-        const recentMessages = Array.from(sentMessages)
-            .filter(entry => {
-                const [storedMessage, timestamp] = entry.split('|');
-                return storedMessage === message && 
-                       now - parseInt(timestamp) < 5 * 60 * 1000;
-            });
+        // Check for recent duplicates
+        const isDuplicate = Array.from(sentMessages).some(entry => {
+            const [storedMessage, timestamp] = entry.split('|');
+            return storedMessage === message && 
+                   now - parseInt(timestamp) < MESSAGE_EXPIRY;
+        });
 
-        if (recentMessages.length > 0) {
+        if (isDuplicate) {
             console.log('Duplicate message prevented');
             return false;
         }
 
-        // Add to sent messages set
-        sentMessages.add(messageKey);
-        cleanupOldMessages();
-
-        // Respect rate limiting
+        // Rate limiting
         const timeSinceLastMessage = now - lastMessageTime;
         if (timeSinceLastMessage < MIN_INTERVAL) {
             await new Promise(resolve => 
@@ -68,7 +51,7 @@ export async function sendTelegramMessage(message: string): Promise<boolean> {
         }
 
         const response = await axios.post<TelegramResponse>(
-            `${TELEGRAM_BASE_URL}/sendMessage`,
+            `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
             {
                 chat_id: process.env.TELEGRAM_CHAT_ID,
                 text: message,
@@ -77,29 +60,20 @@ export async function sendTelegramMessage(message: string): Promise<boolean> {
         );
 
         lastMessageTime = Date.now();
+        sentMessages.add(messageKey);
 
-        if (!response.data.ok) {
-            throw new TelegramError('Telegram API returned not OK');
-        }
+        // Cleanup old messages
+        const now2 = Date.now();
+        Array.from(sentMessages).forEach(entry => {
+            const [, timestamp] = entry.split('|');
+            if (now2 - parseInt(timestamp) > MESSAGE_EXPIRY) {
+                sentMessages.delete(entry);
+            }
+        });
 
         return true;
-
     } catch (error: any) {
-        // Simple error handling based on response structure
-        if (error?.response?.status) {
-            if (error.response.status === 429) {
-                const retryAfter = error.response.data?.parameters?.retry_after || 30;
-                console.error(`Rate limited by Telegram. Retry after ${retryAfter} seconds`);
-                throw new TelegramError('Rate limited', 429, retryAfter);
-            }
-            console.error('Telegram API Error:', {
-                status: error.response.status,
-                message: error.message,
-                timestamp: new Date().toISOString()
-            });
-        } else {
-            console.error('Unexpected error:', error);
-        }
+        console.error('Telegram API Error:', error);
         return false;
     }
-} 
+}
