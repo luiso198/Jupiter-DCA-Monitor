@@ -1,138 +1,55 @@
 import { NextResponse } from 'next/server';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { DCA } from '@jup-ag/dca-sdk';
-import { ProgramDCAAccount } from '@/lib/types';
 import { sendTelegramMessage } from '@/lib/telegram';
 
 // Token addresses
 const LOGOS = new PublicKey('HJUfqXoYjC653f2p33i84zdCC3jc4EuVnbruSe5kpump');
 const CHAOS = new PublicKey('8SgNwESovnbG1oNEaPVhg6CR9mTMSK7jPvcYRe3wpump');
 
-const MAX_RETRIES = 3;
-const RETRY_DELAY = 1000; // 1 second
-
 export async function GET() {
-    let retries = MAX_RETRIES;
-    
-    while (retries > 0) {
-        try {
-            // Validate environment variables
-            if (!process.env.NEXT_PUBLIC_RPC_ENDPOINT) {
-                throw new Error('RPC endpoint not configured');
-            }
-            if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
-                throw new Error('Telegram credentials not configured');
-            }
+    try {
+        // Log environment check
+        console.log('Environment check:', {
+            hasRpcEndpoint: !!process.env.NEXT_PUBLIC_RPC_ENDPOINT,
+            hasTelegramToken: !!process.env.TELEGRAM_BOT_TOKEN,
+            hasTelegramChatId: !!process.env.TELEGRAM_CHAT_ID,
+            nodeEnv: process.env.NODE_ENV
+        });
 
-            console.log('Fetching DCA orders with RPC:', process.env.NEXT_PUBLIC_RPC_ENDPOINT);
-            const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT);
-            const dca = new DCA(connection);
-            
-            const allDcaAccounts = await dca.getAll() as ProgramDCAAccount[];
-            console.log(`Found ${allDcaAccounts.length} total DCA accounts`);
-            
-            const activePositions = allDcaAccounts.filter(pos => {
-                if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) {
-                    return false;
-                }
-                
-                const inputMint = pos.account.inputMint.toString();
-                const outputMint = pos.account.outputMint.toString();
-                
-                return (
-                    inputMint === LOGOS.toString() || 
-                    outputMint === LOGOS.toString() ||
-                    inputMint === CHAOS.toString() || 
-                    outputMint === CHAOS.toString()
-                );
-            });
-            
-            console.log(`Found ${activePositions.length} active LOGOS/CHAOS positions`);
-
-            const summary = await generateDcaSummary(activePositions);
-            console.log('Generated summary:', summary);
-
-            // Send Telegram message
-            const messageSent = await sendTelegramMessage(summary.message);
-            if (!messageSent) {
-                console.error('Failed to send Telegram message');
-            }
-
-            return NextResponse.json({ success: true, data: summary });
-        } catch (error: any) {
-            console.error(`Error checking DCA orders (${retries} retries left):`, error?.message || error);
-            retries--;
-            
-            if (retries > 0) {
-                await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
-                continue;
-            }
-            
-            return NextResponse.json(
-                { success: false, error: error?.message || 'Failed to check DCA orders' },
-                { status: 500 }
-            );
+        // Basic environment validation
+        if (!process.env.NEXT_PUBLIC_RPC_ENDPOINT || !process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
+            throw new Error('Missing required environment variables');
         }
-    }
-}
 
-async function generateDcaSummary(positions: ProgramDCAAccount[]) {
-    const summary = {
-        LOGOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 },
-        CHAOS: { buyOrders: 0, sellOrders: 0, buyVolume: 0, sellVolume: 0 }
-    };
-
-    // Calculate summary
-    for (const pos of positions) {
-        const inputMint = pos.account.inputMint.toString();
-        const outputMint = pos.account.outputMint.toString();
+        // Initialize and fetch data
+        console.log('Connecting to RPC...');
+        const connection = new Connection(process.env.NEXT_PUBLIC_RPC_ENDPOINT);
+        const dca = new DCA(connection);
         
-        const totalAmount = pos.account.inDeposited.sub(pos.account.inWithdrawn);
-        const volume = Number(totalAmount.toString()) / Math.pow(10, 6);
+        console.log('Fetching accounts...');
+        const accounts = await dca.getAll();
+        console.log(`Found ${accounts.length} accounts`);
 
-        // Process LOGOS positions
-        if (inputMint === LOGOS.toString() || outputMint === LOGOS.toString()) {
-            const isBuying = outputMint === LOGOS.toString();
-            if (isBuying) {
-                summary.LOGOS.buyOrders++;
-                summary.LOGOS.buyVolume += volume;
-            } else {
-                summary.LOGOS.sellOrders++;
-                summary.LOGOS.sellVolume += volume;
-            }
-        }
+        // Send test message
+        const message = `🤖 DCA Monitor Test\nFound ${accounts.length} total accounts`;
+        console.log('Sending message:', message);
+        await sendTelegramMessage(message);
 
-        // Process CHAOS positions
-        if (inputMint === CHAOS.toString() || outputMint === CHAOS.toString()) {
-            const isBuying = outputMint === CHAOS.toString();
-            if (isBuying) {
-                summary.CHAOS.buyOrders++;
-                summary.CHAOS.buyVolume += volume;
-            } else {
-                summary.CHAOS.sellOrders++;
-                summary.CHAOS.sellVolume += volume;
-            }
-        }
+        return NextResponse.json({ success: true, count: accounts.length });
+    } catch (error: any) {
+        console.error('Error:', {
+            message: error?.message,
+            name: error?.name,
+            code: error?.code
+        });
+        
+        return NextResponse.json(
+            { 
+                success: false, 
+                error: error?.message || 'Unknown error'
+            },
+            { status: 500 }
+        );
     }
-
-    const message = [
-        '🤖 Jupiter DCA Summary\n',
-        '🔵 LOGOS',
-        `Buy: ${summary.LOGOS.buyOrders} orders (${summary.LOGOS.buyVolume.toLocaleString()})`,
-        `Sell: ${summary.LOGOS.sellOrders} orders (${summary.LOGOS.sellVolume.toLocaleString()})\n`,
-        '🟣 CHAOS',
-        `Buy: ${summary.CHAOS.buyOrders} orders (${summary.CHAOS.buyVolume.toLocaleString()})`,
-        `Sell: ${summary.CHAOS.sellOrders} orders (${summary.CHAOS.sellVolume.toLocaleString()})`
-    ].join('\n');
-
-    return { 
-        summary,
-        message,
-        positions: positions.map(pos => ({
-            type: pos.account.outputMint.toString() === LOGOS.toString() || pos.account.outputMint.toString() === CHAOS.toString() ? 'BUY' : 'SELL',
-            token: pos.account.inputMint.toString() === LOGOS.toString() || pos.account.outputMint.toString() === LOGOS.toString() ? 'LOGOS' : 'CHAOS',
-            volume: Number(pos.account.inDeposited.sub(pos.account.inWithdrawn).toString()) / Math.pow(10, 6),
-            publicKey: pos.publicKey.toString()
-        }))
-    };
 } 
