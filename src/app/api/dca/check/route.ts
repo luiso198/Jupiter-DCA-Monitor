@@ -70,7 +70,7 @@ export async function GET() {
 
         // Process accounts with timeout
         console.error('DEPLOYMENT DEBUG - Processing accounts');
-        const formattedData = await withTimeout(Promise.resolve().then(() => {
+        const processData = async () => {
             const positions = accounts.filter((pos: ProgramDCAAccount) => {
                 if (!pos.account.inDeposited.gt(pos.account.inWithdrawn)) return false;
                 const inputMint = pos.account.inputMint.toString();
@@ -120,10 +120,12 @@ export async function GET() {
                     };
                 }),
                 lastUpdate: Date.now()
-            });
+            };
 
             return result;
-        }), 5000, 'Data processing timeout'); // 5 seconds for processing
+        };
+
+        const formattedData = await withTimeout(processData(), 5000, 'Data processing timeout');
 
         // Update cache
         cachedData = formattedData;
