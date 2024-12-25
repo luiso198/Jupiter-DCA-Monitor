@@ -64,7 +64,7 @@ export function useDcaData(refreshInterval = 5000) {
             try {
                 if (!connection) {
                     connection = new Connection(
-                        process.env.NEXT_PUBLIC_RPC_ENDPOINT || 'https://api.mainnet-beta.solana.com',
+                        process.env.NEXT_PUBLIC_RPC_ENDPOINT || 'https://mainnet.helius-rpc.com/?api-key=aef2a726-33bc-4da3-abdd-5dd1b9e09978',
                         {
                             commitment: 'confirmed',
                             disableRetryOnRateLimit: false
